@@ -54,4 +54,14 @@ public class Package {
     public void setDeclaredValue(Double declaredValue) {
         this.declaredValue = declaredValue;
     }
+
+    @Override
+    public String toString() {
+        return "Package{" +
+                "identifier=" + identifier +
+                ", type='" + type + '\'' +
+                ", weight=" + weight +
+                ", declaredValue=" + declaredValue +
+                '}';
+    }
 }

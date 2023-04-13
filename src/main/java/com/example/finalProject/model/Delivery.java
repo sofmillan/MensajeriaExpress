@@ -1,12 +1,13 @@
 package com.example.finalProject.model;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Table(name="delivery")
 public class Delivery {
     @Id
-    private String guideNumber;
+    private UUID guideNumber;
     @ManyToOne
     @JoinColumn(name="id")
     private Client client;
@@ -22,9 +23,9 @@ public class Delivery {
     private Double deliveryValue;
 
     public Delivery(){}
-    public Delivery(String guideNumber, Client client, Package package1, String destinationCity, String originCity, String destinationAddress,
+    public Delivery( Client client, Package package1, String destinationCity, String originCity, String destinationAddress,
                     String receiverName, Long receiverPhoneNumber, String deliveryStatus, Double deliveryValue) {
-        this.guideNumber = guideNumber;
+        this.guideNumber = UUID.randomUUID();
         this.client = client;
         this.package1 = package1;
         this.destinationCity = destinationCity;
@@ -36,11 +37,11 @@ public class Delivery {
         this.deliveryValue = deliveryValue;
     }
 
-    public String getGuideNumber() {
+    public UUID getGuideNumber() {
         return guideNumber;
     }
 
-    public void setGuideNumber(String guideNumber) {
+    public void setGuideNumber(UUID guideNumber) {
         this.guideNumber = guideNumber;
     }
 
@@ -114,5 +115,21 @@ public class Delivery {
 
     public void setDeliveryValue(Double deliveryValue) {
         this.deliveryValue = deliveryValue;
+    }
+
+    @Override
+    public String toString() {
+        return "Delivery{" +
+                "guideNumber=" + guideNumber +
+                ", client=" + client +
+                ", package1=" + package1 +
+                ", destinationCity='" + destinationCity + '\'' +
+                ", originCity='" + originCity + '\'' +
+                ", destinationAddress='" + destinationAddress + '\'' +
+                ", receiverName='" + receiverName + '\'' +
+                ", receiverPhoneNumber=" + receiverPhoneNumber +
+                ", deliveryStatus='" + deliveryStatus + '\'' +
+                ", deliveryValue=" + deliveryValue +
+                '}';
     }
 }
