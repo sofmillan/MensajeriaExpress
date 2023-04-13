@@ -44,6 +44,8 @@ public class EmployeeService {
         }
         return optionalEmployee.get();
     }
+
+
     public List<Employee> getEmployees() {
         return this.employeeRepository.findAll();
     }
@@ -72,7 +74,7 @@ public class EmployeeService {
            optionalEmployee.get().setSeniority(employee.getSeniority());
            optionalEmployee.get().setType(employee.getType());
            optionalEmployee.get().setPhoneNumber(employee.getPhoneNumber());
-           optionalEmployee.get().setId(id);;
+           optionalEmployee.get().setId(id);
 
            return this.employeeRepository.save(optionalEmployee.get());
     }
@@ -97,7 +99,6 @@ public class EmployeeService {
     public boolean validateId(Long id){
         String s = Long.toString(id);
         return s.length() <= 10;
-
     }
 }
 
