@@ -2,9 +2,7 @@ package com.example.finalProject.service;
 
 import com.example.finalProject.exception.DataNotFoundException;
 import com.example.finalProject.exception.InvalidDataException;
-import com.example.finalProject.model.Client;
-import com.example.finalProject.model.Delivery;
-import com.example.finalProject.model.DeliveryDTO;
+import com.example.finalProject.model.*;
 import com.example.finalProject.model.Package;
 import com.example.finalProject.repository.ClientRepository;
 import com.example.finalProject.repository.DeliveryRepository;
@@ -28,7 +26,7 @@ public class DeliveryService {
         this.clientRepository = clientRepository;
     }
 
-    public void createDelivery(DeliveryDTO deliveryDTO){
+    public DeliveryResponse createDelivery(DeliveryDTO deliveryDTO){
         if(deliveryDTO.getDestinationCity()==null ||
         deliveryDTO.getIdClient()==null || deliveryDTO.getWeight() == null||
         deliveryDTO.getPackageDeclaredValue()==null || deliveryDTO.getReceiverName()==null||
@@ -63,8 +61,6 @@ public class DeliveryService {
         Delivery delivery = new Delivery(optionalClient.get(),package1,deliveryDTO.getDestinationCity(),deliveryDTO.getOriginCity(),deliveryDTO.getDestinationAddress(), deliveryDTO.getReceiverName(),deliveryDTO.getReceiverPhoneNumber(),"Received",deliveryValue);
         deliveryRepository.save(delivery);
 
-        System.out.println(package1);
-        System.out.println(delivery);
-       // return new Object(delivery.getGuideNumber(),delivery.getDeliveryStatus());
+        return new DeliveryResponse(delivery.getGuideNumber(), delivery.getDeliveryStatus());
     }
 }

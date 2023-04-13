@@ -12,6 +12,7 @@ public class DeliveryDTO {
 
     public DeliveryDTO(){}
 
+
     public DeliveryDTO(Long idClient, String originCity, String destinationCity, String receiverName,
                        Long receiverPhoneNumber, Double packageDeclaredValue, Double weight, String destinationAddress) {
         this.idClient = idClient;

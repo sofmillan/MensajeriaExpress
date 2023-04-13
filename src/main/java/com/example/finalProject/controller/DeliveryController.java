@@ -1,6 +1,7 @@
 package com.example.finalProject.controller;
 
 import com.example.finalProject.model.DeliveryDTO;
+import com.example.finalProject.model.DeliveryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +20,7 @@ public class DeliveryController {
     }
 
     @PostMapping("/delivery")
-    public void createDelivery(@RequestBody  DeliveryDTO deliveryDTO){
-        this.deliveryService.createDelivery(deliveryDTO);
+    public DeliveryResponse DeliveryResponse(@RequestBody  DeliveryDTO deliveryDTO){
+       return this.deliveryService.createDelivery(deliveryDTO);
     }
 }
