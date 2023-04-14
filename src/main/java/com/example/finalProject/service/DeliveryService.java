@@ -1,5 +1,7 @@
 package com.example.finalProject.service;
 
+import com.example.finalProject.dto.DeliveryResponseDTO;
+import com.example.finalProject.dto.DeliveryStatusDTO;
 import com.example.finalProject.dto.newDeliveryDTO;
 import com.example.finalProject.dto.DeliveryConfirmationDTO;
 import com.example.finalProject.exception.DataNotFoundException;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class DeliveryService {
@@ -70,19 +73,39 @@ public class DeliveryService {
         return new DeliveryConfirmationDTO(delivery.getGuideNumber(), delivery.getDeliveryStatus());
     }
 
-    public Delivery getDelivery(String guideNumber){
+    public DeliveryResponseDTO getDelivery(String guideNumber){
       Optional<Delivery> optionalDelivery = this.deliveryRepository.findById(guideNumber);
       if(optionalDelivery.isEmpty()){
           throw new DataNotFoundException("The delivery with guide number "+guideNumber+" is not registered");
       }
-        return optionalDelivery.get();
+      Delivery delivery = optionalDelivery.get();
+        return new DeliveryResponseDTO(delivery.getClient().getId(), delivery.getOriginCity(),delivery.getDestinationCity(),
+                delivery.getDestinationAddress(),delivery.getReceiverName(),delivery.getReceiverPhoneNumber(),delivery.getPackage1().getDeclaredValue(),
+                delivery.getPackage1().getWeight(), delivery.getDeliveryValue(),delivery.getDeliveryStatus(), delivery.getGuideNumber());
     }
 
-    public List<Delivery> filterByStatus(String status, Long employeeId) {
+
+    public List<DeliveryResponseDTO> filterByStatus(String status, Long employeeId) {
         Optional<Employee> optionalEmployee = this.employeeRepository.findById(employeeId);
         if(optionalEmployee.isEmpty()){
             throw new DataNotFoundException("The employee with id "+employeeId+" is not registered in our company.");
         }
-        return this.deliveryRepository.filterByStatus(status);
+        return this.deliveryRepository.filterByStatus(status)
+                .stream()
+                .map(delivery -> new DeliveryResponseDTO(delivery.getClient().getId(),
+                        delivery.getOriginCity(),
+                        delivery.getDestinationCity(),
+                        delivery.getDestinationAddress(),
+                        delivery.getReceiverName(),
+                        delivery.getReceiverPhoneNumber(),
+                        delivery.getPackage1().getDeclaredValue(),
+                        delivery.getPackage1().getWeight(),
+                        delivery.getDeliveryValue(),
+                        delivery.getDeliveryStatus(),
+                        delivery.getGuideNumber())).collect(Collectors.toList());
+    }
+
+    public void updateStatus(){
+
     }
 }

@@ -1,5 +1,7 @@
 package com.example.finalProject.controller;
 
+import com.example.finalProject.dto.DeliveryResponseDTO;
+import com.example.finalProject.dto.DeliveryStatusDTO;
 import com.example.finalProject.model.Delivery;
 import com.example.finalProject.dto.newDeliveryDTO;
 import com.example.finalProject.dto.DeliveryConfirmationDTO;
@@ -26,13 +28,17 @@ public class DeliveryController {
     }
 
     @GetMapping("/delivery/{guideNumber}")
-    public Delivery getDelivery(@PathVariable String guideNumber){
+    public DeliveryResponseDTO getDelivery(@PathVariable String guideNumber){
         return this.deliveryService.getDelivery(guideNumber);
     }
 
     @GetMapping("/delivery")
-    public List<Delivery> filterByStatus(@RequestParam String status, @RequestParam Long employeeId){
+    public List<DeliveryResponseDTO> filterByStatus(@RequestParam String status, @RequestParam Long employeeId){
         return this.deliveryService.filterByStatus(status, employeeId);
+    }
+    @PutMapping("/delivery")
+    public void updateStatus(){
+         this.deliveryService.updateStatus();
     }
 
 }
