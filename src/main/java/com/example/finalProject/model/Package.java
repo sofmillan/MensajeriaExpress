@@ -11,7 +11,7 @@ import java.util.UUID;
 public class Package {
     @Id
     @Column(name="identifier")
-    private UUID identifier;
+    private String identifier;
     @Column(name="packageType")
     private String type;
     @Column(name="weight")
@@ -21,13 +21,13 @@ public class Package {
 
     public Package(){}
     public Package(String type, Double weight, Double declaredValue) {
-        this.identifier = UUID.randomUUID();
+        this.identifier = UUID.randomUUID().toString();
         this.type = type;
         this.weight = weight;
         this.declaredValue = declaredValue;
     }
 
-    public UUID getId() {
+    public String getId() {
         return identifier;
     }
 

@@ -7,16 +7,16 @@ import javax.persistence.OneToOne;
 import java.util.UUID;
 
 public class DeliveryResponse {
-    private UUID guideNumber;
+    private String guideNumber;
     private String deliveryStatus;
 
     public DeliveryResponse(){}
-    public DeliveryResponse(UUID guideNumber, String deliveryStatus) {
+    public DeliveryResponse(String guideNumber, String deliveryStatus) {
         this.guideNumber = guideNumber;
         this.deliveryStatus = deliveryStatus;
     }
 
-    public UUID getGuideNumber() {
+    public String getGuideNumber() {
         return guideNumber;
     }
 

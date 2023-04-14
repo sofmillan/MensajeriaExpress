@@ -6,10 +6,12 @@ import com.example.finalProject.model.*;
 import com.example.finalProject.model.Package;
 import com.example.finalProject.repository.ClientRepository;
 import com.example.finalProject.repository.DeliveryRepository;
+import com.example.finalProject.repository.EmployeeRepository;
 import com.example.finalProject.repository.PackageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,12 +20,14 @@ public class DeliveryService {
     private final DeliveryRepository deliveryRepository;
     private final PackageRepository packageRepository;
     private final ClientRepository clientRepository;
+    private final EmployeeRepository employeeRepository;
 
     @Autowired
-    public DeliveryService(DeliveryRepository deliveryRepository, PackageRepository packageRepository, ClientRepository clientRepository) {
+    public DeliveryService(DeliveryRepository deliveryRepository, PackageRepository packageRepository, ClientRepository clientRepository, EmployeeRepository employeeRepository) {
         this.deliveryRepository = deliveryRepository;
         this.packageRepository = packageRepository;
         this.clientRepository = clientRepository;
+        this.employeeRepository = employeeRepository;
     }
 
     public DeliveryResponse createDelivery(DeliveryDTO deliveryDTO){
@@ -62,5 +66,21 @@ public class DeliveryService {
         deliveryRepository.save(delivery);
 
         return new DeliveryResponse(delivery.getGuideNumber(), delivery.getDeliveryStatus());
+    }
+
+    public Delivery getDelivery(String guideNumber){
+      Optional<Delivery> optionalDelivery = this.deliveryRepository.findById(guideNumber);
+      if(optionalDelivery.isEmpty()){
+          throw new DataNotFoundException("The delivery with guide number "+guideNumber+" is not registered");
+      }
+        return optionalDelivery.get();
+    }
+
+    public List<Delivery> filterByStatus(String status, Long employeeId) {
+        Optional<Employee> optionalEmployee = this.employeeRepository.findById(employeeId);
+        if(optionalEmployee.isEmpty()){
+            throw new DataNotFoundException("The employee with id "+employeeId+" is not registered in our company.");
+        }
+        return this.deliveryRepository.filterByStatus(status);
     }
 }

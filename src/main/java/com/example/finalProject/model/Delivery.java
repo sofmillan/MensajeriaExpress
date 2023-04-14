@@ -7,7 +7,7 @@ import java.util.UUID;
 @Table(name="delivery")
 public class Delivery {
     @Id
-    private UUID guideNumber;
+    private String guideNumber;
     @ManyToOne
     @JoinColumn(name="id")
     private Client client;
@@ -26,7 +26,7 @@ public class Delivery {
 
     public Delivery(Client client, Package package1, String destinationCity, String originCity, String destinationAddress,
                     String receiverName, Long receiverPhoneNumber, String deliveryStatus, Double deliveryValue) {
-        this.guideNumber = UUID.randomUUID();
+        this.guideNumber = UUID.randomUUID().toString();
         this.client = client;
         this.package1 = package1;
         this.destinationCity = destinationCity;
@@ -38,11 +38,11 @@ public class Delivery {
         this.deliveryValue = deliveryValue;
     }
 
-    public UUID getGuideNumber() {
+    public String getGuideNumber() {
         return guideNumber;
     }
 
-    public void setGuideNumber(UUID guideNumber) {
+    public void setGuideNumber(String guideNumber) {
         this.guideNumber = guideNumber;
     }
 

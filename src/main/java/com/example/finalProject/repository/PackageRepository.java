@@ -6,5 +6,5 @@ import com.example.finalProject.model.Package;
 import java.util.UUID;
 
 @Repository
-public interface PackageRepository extends JpaRepository<Package, UUID> {
+public interface PackageRepository extends JpaRepository<Package, String> {
 }
