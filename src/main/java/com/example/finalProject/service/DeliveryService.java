@@ -1,9 +1,6 @@
 package com.example.finalProject.service;
 
-import com.example.finalProject.dto.DeliveryResponseDTO;
-import com.example.finalProject.dto.DeliveryStatusDTO;
-import com.example.finalProject.dto.newDeliveryDTO;
-import com.example.finalProject.dto.DeliveryConfirmationDTO;
+import com.example.finalProject.dto.*;
 import com.example.finalProject.exception.DataNotFoundException;
 import com.example.finalProject.exception.InvalidDataException;
 import com.example.finalProject.model.*;
@@ -16,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -105,7 +103,42 @@ public class DeliveryService {
                         delivery.getGuideNumber())).collect(Collectors.toList());
     }
 
-    public void updateStatus(){
+    public DeliveryStatusDTO updateStatus(DeliveryUpdateRequestDTO deliveryUpdate){
+        Optional<Employee> optionalEmployee = this.employeeRepository.findById(deliveryUpdate.getIdEmployee());
+        Optional<Delivery> optionalDelivery = this.deliveryRepository.findById(deliveryUpdate.getGuideNumber());
+        if(optionalEmployee.isEmpty()){
+            throw new DataNotFoundException("The employee with id "+deliveryUpdate.getIdEmployee()+" is not registered in our company.");
+        }
+        if(optionalDelivery.isEmpty()){
+            throw new DataNotFoundException("The delivery with guide number "+deliveryUpdate.getGuideNumber()+" does not exist");
 
+        }
+        Delivery delivery = optionalDelivery.get();
+        String employeeType = optionalEmployee.get().getType();
+        if(employeeType.equalsIgnoreCase( "driver")){
+            throw new InvalidDataException(employeeType+ "employee type cannot update a delivery");
+        }
+        if(delivery.getDeliveryStatus().equals("Received")){
+            if(deliveryUpdate.getDeliveryStatus().equals("Ruta")){
+                optionalDelivery.get().setDeliveryStatus("Ruta");
+            }
+            if(deliveryUpdate.getDeliveryStatus().equals("Entregado")){
+                throw new InvalidDataException("The status update is not valid");
+            }
+        }
+        if(delivery.getDeliveryStatus().equals("Ruta")){
+            if(deliveryUpdate.getDeliveryStatus().equals("Received")){
+                throw new InvalidDataException("The status update is not valid");
+            }
+            if(deliveryUpdate.getDeliveryStatus().equals("Entregado")){
+                optionalDelivery.get().setDeliveryStatus("Entregado");
+            }
+        }
+        if(delivery.getDeliveryStatus().equals("Entregado")){
+            throw new InvalidDataException("The status update is not valid");
+        }
+        this.deliveryRepository.save(optionalDelivery.get());
+        System.out.println( this.deliveryRepository.findAll());
+        return new DeliveryStatusDTO(deliveryUpdate.getGuideNumber(),deliveryUpdate.getDeliveryStatus());
     }
 }

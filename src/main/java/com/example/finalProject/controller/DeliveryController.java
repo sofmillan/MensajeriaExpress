@@ -1,10 +1,7 @@
 package com.example.finalProject.controller;
 
-import com.example.finalProject.dto.DeliveryResponseDTO;
-import com.example.finalProject.dto.DeliveryStatusDTO;
+import com.example.finalProject.dto.*;
 import com.example.finalProject.model.Delivery;
-import com.example.finalProject.dto.newDeliveryDTO;
-import com.example.finalProject.dto.DeliveryConfirmationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.finalProject.service.DeliveryService;
@@ -37,8 +34,8 @@ public class DeliveryController {
         return this.deliveryService.filterByStatus(status, employeeId);
     }
     @PutMapping("/delivery")
-    public void updateStatus(){
-         this.deliveryService.updateStatus();
+    public DeliveryStatusDTO updateStatus(@RequestBody DeliveryUpdateRequestDTO deliveryUpdate){
+         return this.deliveryService.updateStatus(deliveryUpdate);
     }
 
 }
