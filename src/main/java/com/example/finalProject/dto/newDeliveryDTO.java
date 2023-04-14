@@ -1,20 +1,21 @@
-package com.example.finalProject.model;
+package com.example.finalProject.dto;
 
-public class DeliveryDTO {
+public class newDeliveryDTO {
     private Long idClient;
     private String originCity;
     private String destinationCity;
+    private String destinationAddress;
     private String receiverName;
     private Long receiverPhoneNumber;
     private Double packageDeclaredValue;
     private Double weight;
-    private String destinationAddress;
-
-    public DeliveryDTO(){}
 
 
-    public DeliveryDTO(Long idClient, String originCity, String destinationCity, String receiverName,
-                       Long receiverPhoneNumber, Double packageDeclaredValue, Double weight, String destinationAddress) {
+    public newDeliveryDTO(){}
+
+
+    public newDeliveryDTO(Long idClient, String originCity, String destinationCity, String destinationAddress, String receiverName,
+                          Long receiverPhoneNumber, Double packageDeclaredValue, Double weight) {
         this.idClient = idClient;
         this.originCity = originCity;
         this.destinationCity = destinationCity;

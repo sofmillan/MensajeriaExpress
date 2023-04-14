@@ -1,5 +1,7 @@
 package com.example.finalProject.service;
 
+import com.example.finalProject.dto.newDeliveryDTO;
+import com.example.finalProject.dto.DeliveryConfirmationDTO;
 import com.example.finalProject.exception.DataNotFoundException;
 import com.example.finalProject.exception.InvalidDataException;
 import com.example.finalProject.model.*;
@@ -30,42 +32,42 @@ public class DeliveryService {
         this.employeeRepository = employeeRepository;
     }
 
-    public DeliveryResponse createDelivery(DeliveryDTO deliveryDTO){
-        if(deliveryDTO.getDestinationCity()==null ||
-        deliveryDTO.getIdClient()==null || deliveryDTO.getWeight() == null||
-        deliveryDTO.getPackageDeclaredValue()==null || deliveryDTO.getReceiverName()==null||
-        deliveryDTO.getReceiverPhoneNumber()== null|| deliveryDTO.getDestinationAddress()==null
-                || deliveryDTO.getOriginCity()==null){
-            System.out.println(deliveryDTO);
+    public DeliveryConfirmationDTO createDelivery(newDeliveryDTO newDeliveryDTO){
+        if(newDeliveryDTO.getDestinationCity()==null ||
+        newDeliveryDTO.getIdClient()==null || newDeliveryDTO.getWeight() == null||
+        newDeliveryDTO.getPackageDeclaredValue()==null || newDeliveryDTO.getReceiverName()==null||
+        newDeliveryDTO.getReceiverPhoneNumber()== null|| newDeliveryDTO.getDestinationAddress()==null
+                || newDeliveryDTO.getOriginCity()==null){
+            System.out.println(newDeliveryDTO);
             throw new InvalidDataException("Please fill all the information");
         }
 
-        Optional<Client> optionalClient = this.clientRepository.findById(deliveryDTO.getIdClient());
+        Optional<Client> optionalClient = this.clientRepository.findById(newDeliveryDTO.getIdClient());
         if(optionalClient.isEmpty()){
-            throw new DataNotFoundException("The client with id "+deliveryDTO.getIdClient()+" must be registered to send a package.");
+            throw new DataNotFoundException("The client with id "+ newDeliveryDTO.getIdClient()+" must be registered to send a package.");
         }
         String packageType;
         double deliveryValue;
-        if(deliveryDTO.getWeight()<2){
+        if(newDeliveryDTO.getWeight()<2){
             packageType = "Light";
             deliveryValue = 30000;
-        }else if(deliveryDTO.getWeight()<=2 && deliveryDTO.getWeight()>5){
+        }else if(newDeliveryDTO.getWeight()<=2 && newDeliveryDTO.getWeight()>5){
             packageType = "Medium";
             deliveryValue = 40000;
-        }else if(deliveryDTO.getWeight()>=5){
+        }else if(newDeliveryDTO.getWeight()>=5){
             packageType = "Large";
             deliveryValue = 50000;
         }else{
             throw new InvalidDataException("The weight is not valid");
         }
 
-        Package package1 = new Package(packageType,deliveryDTO.getWeight(),deliveryDTO.getPackageDeclaredValue());
+        Package package1 = new Package(packageType, newDeliveryDTO.getWeight(), newDeliveryDTO.getPackageDeclaredValue());
         packageRepository.save(package1);
 
-        Delivery delivery = new Delivery(optionalClient.get(),package1,deliveryDTO.getDestinationCity(),deliveryDTO.getOriginCity(),deliveryDTO.getDestinationAddress(), deliveryDTO.getReceiverName(),deliveryDTO.getReceiverPhoneNumber(),"Received",deliveryValue);
+        Delivery delivery = new Delivery(optionalClient.get(),package1, newDeliveryDTO.getDestinationCity(), newDeliveryDTO.getOriginCity(), newDeliveryDTO.getDestinationAddress(), newDeliveryDTO.getReceiverName(), newDeliveryDTO.getReceiverPhoneNumber(),"Received",deliveryValue);
         deliveryRepository.save(delivery);
 
-        return new DeliveryResponse(delivery.getGuideNumber(), delivery.getDeliveryStatus());
+        return new DeliveryConfirmationDTO(delivery.getGuideNumber(), delivery.getDeliveryStatus());
     }
 
     public Delivery getDelivery(String guideNumber){

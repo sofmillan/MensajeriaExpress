@@ -1,14 +1,13 @@
 package com.example.finalProject.controller;
 
 import com.example.finalProject.model.Delivery;
-import com.example.finalProject.model.DeliveryDTO;
-import com.example.finalProject.model.DeliveryResponse;
+import com.example.finalProject.dto.newDeliveryDTO;
+import com.example.finalProject.dto.DeliveryConfirmationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.finalProject.service.DeliveryService;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("api/v1")
@@ -22,8 +21,8 @@ public class DeliveryController {
     }
 
     @PostMapping("/delivery")
-    public DeliveryResponse createDelivery(@RequestBody  DeliveryDTO deliveryDTO){
-       return this.deliveryService.createDelivery(deliveryDTO);
+    public DeliveryConfirmationDTO createDelivery(@RequestBody newDeliveryDTO newDeliveryDTO){
+       return this.deliveryService.createDelivery(newDeliveryDTO);
     }
 
     @GetMapping("/delivery/{guideNumber}")
