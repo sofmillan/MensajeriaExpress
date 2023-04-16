@@ -1,5 +1,7 @@
 package com.example.finalProject.dto;
 
+
+
 public class newDeliveryDTO {
     private Long idClient;
     private String originCity;
