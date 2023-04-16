@@ -119,26 +119,24 @@ public class DeliveryService {
             throw new InvalidDataException(employeeType+ "employee type cannot update a delivery");
         }
         if(delivery.getDeliveryStatus().equals("Received")){
-            if(deliveryUpdate.getDeliveryStatus().equals("Ruta")){
-                optionalDelivery.get().setDeliveryStatus("Ruta");
-            }
-            if(deliveryUpdate.getDeliveryStatus().equals("Entregado")){
+            if(deliveryUpdate.getDeliveryStatus().equals("On route")){
+                optionalDelivery.get().setDeliveryStatus("On route");
+            } else{
                 throw new InvalidDataException("The status update is not valid");
             }
         }
-        if(delivery.getDeliveryStatus().equals("Ruta")){
-            if(deliveryUpdate.getDeliveryStatus().equals("Received")){
+        else if(delivery.getDeliveryStatus().equals("On route")){
+            if(deliveryUpdate.getDeliveryStatus().equals("Delivered")){
+                optionalDelivery.get().setDeliveryStatus("Delivered");
+            }else{
                 throw new InvalidDataException("The status update is not valid");
             }
-            if(deliveryUpdate.getDeliveryStatus().equals("Entregado")){
-                optionalDelivery.get().setDeliveryStatus("Entregado");
-            }
         }
-        if(delivery.getDeliveryStatus().equals("Entregado")){
+        else if(delivery.getDeliveryStatus().equals("Delivered")){
             throw new InvalidDataException("The status update is not valid");
         }
         this.deliveryRepository.save(optionalDelivery.get());
-        System.out.println( this.deliveryRepository.findAll());
+
         return new DeliveryStatusDTO(deliveryUpdate.getGuideNumber(),deliveryUpdate.getDeliveryStatus());
     }
 }
