@@ -1,11 +1,9 @@
 package com.example.finalProject.controller;
 
 import com.example.finalProject.dto.*;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.finalProject.service.DeliveryService;
 
@@ -29,8 +27,9 @@ public class DeliveryController {
             @ApiResponse(code = 400, message = "Data is not valid, check the input")
     })
     @PostMapping("/delivery")
-    public DeliveryConfirmationDTO createDelivery(@RequestBody newDeliveryDTO newDeliveryDTO){
-       return this.deliveryService.createDelivery(newDeliveryDTO);
+    public ResponseEntity<DeliveryConfirmationDTO> createDelivery(@ApiParam("Delivery's information") @RequestBody newDeliveryDTO newDeliveryDTO){
+        DeliveryConfirmationDTO confirmation = this.deliveryService.createDelivery(newDeliveryDTO);
+        return ResponseEntity.ok(confirmation);
     }
 
     @ApiOperation(value = "Get a delivery by a specific id")
@@ -39,8 +38,9 @@ public class DeliveryController {
             @ApiResponse(code = 400, message = "Data is not valid, check the input")
     })
     @GetMapping("/delivery/{guideNumber}")
-    public DeliveryResponseDTO getDelivery(@PathVariable String guideNumber){
-        return this.deliveryService.getDelivery(guideNumber);
+    public ResponseEntity<DeliveryResponseDTO>  getDelivery(@ApiParam("Delivery's id") @PathVariable String guideNumber){
+        DeliveryResponseDTO foundDelivery = this.deliveryService.getDelivery(guideNumber);
+        return ResponseEntity.ok(foundDelivery);
     }
 
     @ApiOperation(value = "Filter deliveries by status")
@@ -49,7 +49,7 @@ public class DeliveryController {
             @ApiResponse(code = 400, message = "Data is not valid, check the input")
     })
     @GetMapping("/delivery")
-    public List<DeliveryResponseDTO> filterByStatus(@RequestParam String status, @RequestParam Long employeeId){
+    public List<DeliveryResponseDTO> filterByStatus(@ApiParam("Delivery status (e.g Received)")@RequestParam String status, @ApiParam("Employee's id (e.g 123)")@RequestParam Long employeeId){
         return this.deliveryService.filterByStatus(status, employeeId);
     }
 
@@ -60,8 +60,9 @@ public class DeliveryController {
             @ApiResponse(code = 500, message = "Data not found"),
     })
     @PutMapping("/delivery")
-    public DeliveryStatusDTO updateStatus(@RequestBody DeliveryUpdateRequestDTO deliveryUpdate){
-         return this.deliveryService.updateStatus(deliveryUpdate);
+    public ResponseEntity<DeliveryStatusDTO> updateStatus(@ApiParam("Updated delivery information") @RequestBody DeliveryUpdateRequestDTO deliveryUpdate){
+        DeliveryStatusDTO statusUpdate = this.deliveryService.updateStatus(deliveryUpdate);
+        return ResponseEntity.ok(statusUpdate);
     }
 
 }

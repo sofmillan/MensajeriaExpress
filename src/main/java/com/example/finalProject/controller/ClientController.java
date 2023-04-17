@@ -2,10 +2,7 @@ package com.example.finalProject.controller;
 
 import com.example.finalProject.model.Client;
 import com.example.finalProject.service.ClientService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,10 +29,11 @@ public class ClientController {
             @ApiResponse(code = 409, message = "Client already exists, check the id"),
     })
     @PostMapping("/client")
-    public ResponseEntity<Client> addClient(@RequestBody Client client){
-        Client client1 = this.clientService.addClient(client);
-        return ResponseEntity.ok(client1);
+    public ResponseEntity<Client> addClient(@ApiParam("Client's information") @RequestBody Client client){
+        Client createdClient = this.clientService.addClient(client);
+        return ResponseEntity.ok(createdClient);
     }
+
 
     @ApiOperation(value = "Get a client's information by a specific id")
     @ApiResponses( value= {
@@ -43,15 +41,11 @@ public class ClientController {
             @ApiResponse(code = 500, message = "Client not found"),
     })
     @GetMapping("client/{id}")
-    public Client getClientById(@PathVariable Long id){
-        return this.clientService.getClient(id);
+    public ResponseEntity<Client> getClientById(@ApiParam("Client's id (e.g 123)")  @PathVariable Long id){
+        Client foundClient = this.clientService.getClient(id);
+        return ResponseEntity.ok(foundClient);
     }
 
-    @ApiIgnore
-    @GetMapping("/clients")
-    public List<Client> getClient(){
-        return this.clientService.getClients();
-    }
 
     @ApiOperation(value = "Delete a client by a specific id")
     @ApiResponses( value= {
@@ -59,18 +53,20 @@ public class ClientController {
             @ApiResponse(code = 500, message = "Client not found"),
     })
     @DeleteMapping("/client/{id}")
-    public ResponseEntity<Object> deleteClient(@PathVariable Long id){
+    public ResponseEntity<Object> deleteClient(@ApiParam("Client's id (e.g 123)") @PathVariable Long id){
         return this.clientService.deleteClient(id);
     }
 
-        @ApiOperation(value = "Update a client's information by a specific id")
+    @ApiOperation(value = "Update a client's information by a specific id")
     @ApiResponses( value= {
             @ApiResponse(code = 200, message = "Client was updated successfully"),
             @ApiResponse(code = 400, message = "Data is not valid, check the input"),
             @ApiResponse(code = 500, message = "Client not found"),
     })
     @PutMapping("/client/{id}")
-    public Client updateClient(@PathVariable Long id, @RequestBody Client client){
-        return this.clientService.updateClient(id, client);
+    public ResponseEntity<Client> updateClient(@ApiParam("Client's id (e.g 123)") @PathVariable Long id,
+                                                @ApiParam("Updated client's information") @RequestBody Client client){
+        Client updatedClient = this.clientService.updateClient(id, client);
+        return ResponseEntity.ok(updatedClient);
     }
 }

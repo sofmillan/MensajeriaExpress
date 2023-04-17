@@ -2,10 +2,7 @@ package com.example.finalProject.controller;
 
 import com.example.finalProject.model.Employee;
 import com.example.finalProject.service.EmployeeService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +20,7 @@ public class EmployeeController {
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
+
     @ApiOperation(value = "Create a new employee")
     @ApiResponses( value= {
             @ApiResponse(code = 200, message = "Employee created successfully"),
@@ -30,9 +28,9 @@ public class EmployeeController {
             @ApiResponse(code = 409, message = "Employee already exists, check the id"),
     })
     @PostMapping("/employee")
-    public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) {
-        Employee emp1 = employeeService.addEmployee(employee);
-        return ResponseEntity.ok(emp1);
+    public ResponseEntity<Employee> addEmployee(@ApiParam("Employee's information") @RequestBody Employee employee) {
+        Employee createdEmployee = employeeService.addEmployee(employee);
+        return ResponseEntity.ok(createdEmployee);
     }
 
     @ApiOperation(value = "Get an employee's information by a specific id")
@@ -41,14 +39,9 @@ public class EmployeeController {
             @ApiResponse(code = 500, message = "Employee not found"),
     })
     @GetMapping("/employee/{id}")
-    public Employee getEmployeeById(@PathVariable Long id){
-        return this.employeeService.getEmployee(id);
-    }
-
-    @ApiIgnore
-    @GetMapping("/employees")
-    public List<Employee> getEmployees(){
-        return this.employeeService.getEmployees();
+    public ResponseEntity<Employee> getEmployeeById(@ApiParam("Employee's id (e.g 123)") @PathVariable Long id){
+        Employee foundEmployee = this.employeeService.getEmployee(id);
+        return ResponseEntity.ok(foundEmployee);
     }
 
     @ApiOperation(value = "Delete an employee by a specific id")
@@ -57,7 +50,7 @@ public class EmployeeController {
             @ApiResponse(code = 500, message = "Employee not found"),
     })
     @DeleteMapping("/employee/{id}")
-    public ResponseEntity<Object> deleteEmployee(@PathVariable Long id){
+    public ResponseEntity<Object> deleteEmployee(@ApiParam("Employee's id (e.g 123)") @PathVariable Long id){
         return this.employeeService.deleteEmployee(id);
     }
     @ApiOperation(value = "Update an employee's information by a specific id")
@@ -68,8 +61,10 @@ public class EmployeeController {
     }
     )
     @PutMapping("/employee/{id}")
-    public Employee updateEmployee(@PathVariable Long id, @RequestBody Employee employee){
-        return this.employeeService.updateEmployee(id, employee);
+    public ResponseEntity<Employee> updateEmployee(@ApiParam("Employee's id (e.g 123)") @PathVariable Long id,
+                                   @ApiParam("Updated employee's information")@RequestBody Employee employee){
+        Employee updatedEmployee = this.employeeService.updateEmployee(id, employee);
+        return ResponseEntity.ok(updatedEmployee);
     }
 
 
