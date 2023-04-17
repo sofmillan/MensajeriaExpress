@@ -38,7 +38,7 @@ public class EmployeeController {
     @ApiOperation(value = "Get an employee's information by a specific id")
     @ApiResponses( value= {
             @ApiResponse(code = 200, message = "Employee was found"),
-            @ApiResponse(code = 404, message = "Employee not found"),
+            @ApiResponse(code = 500, message = "Employee not found"),
     })
     @GetMapping("/employee/{id}")
     public Employee getEmployeeById(@PathVariable Long id){
@@ -54,7 +54,7 @@ public class EmployeeController {
     @ApiOperation(value = "Delete an employee by a specific id")
     @ApiResponses( value= {
             @ApiResponse(code = 200, message = "Employee was deleted successfully"),
-            @ApiResponse(code = 404, message = "Employee not found"),
+            @ApiResponse(code = 500, message = "Employee not found"),
     })
     @DeleteMapping("/employee/{id}")
     public ResponseEntity<Object> deleteEmployee(@PathVariable Long id){
@@ -64,7 +64,7 @@ public class EmployeeController {
     @ApiResponses( value= {
             @ApiResponse(code = 200, message = "Employee updated successfully"),
             @ApiResponse(code = 400, message = "Data is not valid, check the input"),
-            @ApiResponse(code = 404, message = "Employee not found"),
+            @ApiResponse(code = 500, message = "Employee not found"),
     }
     )
     @PutMapping("/employee/{id}")
