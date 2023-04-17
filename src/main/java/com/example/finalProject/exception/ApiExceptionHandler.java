@@ -15,10 +15,10 @@ public class ApiExceptionHandler {
     public ResponseEntity<Object> handleDataNotFoundException(DataNotFoundException e){
         ApiException apiException= new ApiException(
                 e.getMessage(),
-                HttpStatus.NOT_FOUND,
+                HttpStatus.BAD_REQUEST,
                 ZonedDateTime.now(ZoneId.of("Z"))
         );
-        return new ResponseEntity<>(apiException, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(apiException, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value={InvalidDataException.class})

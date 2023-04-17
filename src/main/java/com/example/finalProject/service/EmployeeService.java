@@ -29,10 +29,16 @@ public class EmployeeService {
         if(optionalEmployee.isPresent()){
             throw new DataAlreadyExistsException("Id already exists");
         }
-        if(validateEmail(employee.getEmail()) && validateType(employee.getType()) && validateId(employee.getId())){
-            return this.employeeRepository.save(employee);
+        if(!validateEmail(employee.getEmail()) ){
+            throw new InvalidDataException("Email is not valid");
         }
-       throw new InvalidDataException("Data is not valid");
+        if(!validateType(employee.getType())){
+            throw new InvalidDataException("Employee type is not valid");
+        }
+        if(!validateId(employee.getId())){
+            throw new InvalidDataException("Id is not valid");
+        }
+        return this.employeeRepository.save(employee);
     }
 
 
