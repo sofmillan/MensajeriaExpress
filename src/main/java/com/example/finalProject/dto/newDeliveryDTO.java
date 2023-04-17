@@ -1,7 +1,9 @@
 package com.example.finalProject.dto;
 
 
+import io.swagger.annotations.ApiModel;
 
+@ApiModel(value="Delivery")
 public class newDeliveryDTO {
     private Long idClient;
     private String originCity;

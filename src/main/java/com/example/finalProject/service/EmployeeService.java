@@ -59,7 +59,6 @@ public class EmployeeService {
        throw new DeletedSuccessfully("Employee with id "+id+" deleted successfully");
     }
 
-
        public Employee updateEmployee(Long id, Employee employee) {
            Optional<Employee> optionalEmployee = this.employeeRepository.findById(id);
            if(optionalEmployee.isEmpty()){

@@ -2,6 +2,9 @@ package com.example.finalProject.model;
 
 
 
+import com.sun.istack.NotNull;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -17,13 +20,10 @@ public class Employee {
     private Long phoneNumber;
     private String email;
     private String address;
-
     private String city;
-
     private Integer seniority;
-
     private String bloodType;
-
+    @NotNull
     private String type;
 
     public Employee(){}
@@ -77,6 +77,7 @@ public class Employee {
         return bloodType;
     }
 
+    @ApiModelProperty(required = true)
     public String getType() {
         return type;
     }
