@@ -6,6 +6,7 @@ import com.example.finalProject.exception.DeletedSuccessfully;
 import com.example.finalProject.exception.InvalidDataException;
 import com.example.finalProject.model.Client;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.example.finalProject.repository.ClientRepository;
@@ -57,8 +58,9 @@ public class ClientService {
             throw new DataNotFoundException("Id does not exist");
         }
         this.clientRepository.deleteById(id);
-        throw new DeletedSuccessfully("Client with id "+id+" deleted successfully");
+        return new ResponseEntity<>(new DeletedSuccessfully("Client with id "+id+" deleted successfully"),  HttpStatus.OK);
     }
+
 
     public Client updateClient(Long id, Client client){
         Optional<Client> optionalClient = this.clientRepository.findById(id);

@@ -7,6 +7,7 @@ import com.example.finalProject.exception.InvalidDataException;
 import com.example.finalProject.model.Employee;
 import com.example.finalProject.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -62,7 +63,7 @@ public class EmployeeService {
             throw new DataNotFoundException("Id does not exist");
         }
         this.employeeRepository.deleteById(id);
-       throw new DeletedSuccessfully("Employee with id "+id+" deleted successfully");
+        return new ResponseEntity<>(new DeletedSuccessfully("Employee with id "+id+" deleted successfully"),  HttpStatus.OK);
     }
 
        public Employee updateEmployee(Long id, Employee employee) {
