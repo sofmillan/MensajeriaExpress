@@ -2,6 +2,7 @@ package com.example.finalProject.dto;
 
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(value="Delivery")
 public class newDeliveryDTO {
@@ -29,7 +30,7 @@ public class newDeliveryDTO {
         this.weight = weight;
         this.destinationAddress = destinationAddress;
     }
-
+    @ApiModelProperty(required = true)
     public Long getIdClient() {
         return idClient;
     }
@@ -37,7 +38,7 @@ public class newDeliveryDTO {
     public void setIdClient(Long idClient) {
         this.idClient = idClient;
     }
-
+    @ApiModelProperty(required = true)
     public String getOriginCity() {
         return originCity;
     }
@@ -45,7 +46,7 @@ public class newDeliveryDTO {
     public void setOriginCity(String originCity) {
         this.originCity = originCity;
     }
-
+    @ApiModelProperty(required = true)
     public String getDestinationCity() {
         return destinationCity;
     }
@@ -53,7 +54,7 @@ public class newDeliveryDTO {
     public void setDestinationCity(String destinationCity) {
         this.destinationCity = destinationCity;
     }
-
+    @ApiModelProperty(required = true)
     public String getReceiverName() {
         return receiverName;
     }
@@ -61,7 +62,7 @@ public class newDeliveryDTO {
     public void setReceiverName(String receiverName) {
         this.receiverName = receiverName;
     }
-
+    @ApiModelProperty(required = true)
     public Long getReceiverPhoneNumber() {
         return receiverPhoneNumber;
     }
@@ -69,7 +70,7 @@ public class newDeliveryDTO {
     public void setReceiverPhoneNumber(Long receiverPhoneNumber) {
         this.receiverPhoneNumber = receiverPhoneNumber;
     }
-
+    @ApiModelProperty(required = true)
     public Double getPackageDeclaredValue() {
         return packageDeclaredValue;
     }
@@ -77,7 +78,7 @@ public class newDeliveryDTO {
     public void setPackageDeclaredValue(Double packageDeclaredValue) {
         this.packageDeclaredValue = packageDeclaredValue;
     }
-
+    @ApiModelProperty(required = true)
     public Double getWeight() {
         return weight;
     }
@@ -85,7 +86,7 @@ public class newDeliveryDTO {
     public void setWeight(Double weight) {
         this.weight = weight;
     }
-
+    @ApiModelProperty(required = true)
     public String getDestinationAddress() {
         return destinationAddress;
     }
