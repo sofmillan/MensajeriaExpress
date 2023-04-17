@@ -39,14 +39,4 @@ public class ApiExceptionHandler {
         );
         return new ResponseEntity<>(apiException, HttpStatus.CONFLICT);
     }
-
-   /* @ExceptionHandler(value={DeletedSuccessfully.class})
-    public ResponseEntity<Object> DeletedSuccessfully(DeletedSuccessfully e){
-        ApiException apiException= new ApiException(
-                e.getMessage(),
-                HttpStatus.OK,
-                ZonedDateTime.now(ZoneId.of("Z"))
-        );
-        return new ResponseEntity<>(apiException, HttpStatus.OK);*/
-
 }
