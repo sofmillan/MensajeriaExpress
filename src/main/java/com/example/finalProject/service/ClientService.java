@@ -31,6 +31,9 @@ public class ClientService {
         if(optionalClient.isPresent()){
             throw new DataAlreadyExistsException("Id "+client.getId() +"already exists");
         }
+        if(client.getId()==null){
+            throw new InvalidDataException("Please fill the id input");
+        }
         if(!validateEmail(client.getEmail()) ){
             throw new InvalidDataException("Email is not valid");
         }

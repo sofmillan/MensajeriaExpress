@@ -30,6 +30,12 @@ public class EmployeeService {
         if(optionalEmployee.isPresent()){
             throw new DataAlreadyExistsException("Id "+employee.getId()+ " already exists");
         }
+        if(employee.getId()==null){
+            throw new InvalidDataException("Please fill the id input");
+        }
+        if(employee.getType()==null){
+            throw new InvalidDataException("Please fill the type input");
+        }
         if(!validateEmail(employee.getEmail()) ){
             throw new InvalidDataException("Email is not valid");
         }
