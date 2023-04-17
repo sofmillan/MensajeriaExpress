@@ -38,7 +38,7 @@ public class ClientController {
     @ApiOperation(value = "Get a client's information by a specific id")
     @ApiResponses( value= {
             @ApiResponse(code = 200, message = "Client was found"),
-            @ApiResponse(code = 404, message = "Client not found"),
+            @ApiResponse(code = 500, message = "Client not found"),
     })
     @GetMapping("client/{id}")
     public Client getClientById(@PathVariable Long id){
@@ -51,16 +51,22 @@ public class ClientController {
         return this.clientService.getClients();
     }
 
-    @ApiOperation(value = "Get a client's information by a specific id")
+    @ApiOperation(value = "Delete a client by a specific id")
     @ApiResponses( value= {
             @ApiResponse(code = 200, message = "Client was found"),
-            @ApiResponse(code = 404, message = "Client not found"),
+            @ApiResponse(code = 500, message = "Client not found"),
     })
     @DeleteMapping("/client/{id}")
     public ResponseEntity<Object> deleteClient(@PathVariable Long id){
         return this.clientService.deleteClient(id);
     }
 
+        @ApiOperation(value = "Update a client's information by a specific id")
+    @ApiResponses( value= {
+            @ApiResponse(code = 200, message = "Client was updated successfully"),
+            @ApiResponse(code = 400, message = "Data is not valid, check the input"),
+            @ApiResponse(code = 500, message = "Client not found"),
+    })
     @PutMapping("/client/{id}")
     public Client updateClient(@PathVariable Long id, @RequestBody Client client){
         return this.clientService.updateClient(id, client);
