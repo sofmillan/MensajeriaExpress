@@ -28,7 +28,7 @@ public class EmployeeService {
     public Employee addEmployee(Employee employee){
         Optional<Employee> optionalEmployee = employeeRepository.findById(employee.getId());
         if(optionalEmployee.isPresent()){
-            throw new DataAlreadyExistsException("Id already exists");
+            throw new DataAlreadyExistsException("Id "+employee.getId()+ " already exists");
         }
         if(!validateEmail(employee.getEmail()) ){
             throw new InvalidDataException("Email is not valid");
@@ -60,7 +60,7 @@ public class EmployeeService {
     public ResponseEntity<Object> deleteEmployee(Long id) {
         Optional<Employee> optionalEmployee = this.employeeRepository.findById(id);
         if(optionalEmployee.isEmpty()){
-            throw new DataNotFoundException("Id does not exist");
+            throw new DataNotFoundException("The employee with id "+id+"does not exist");
         }
         this.employeeRepository.deleteById(id);
         return new ResponseEntity<>(new DeletedSuccessfully("Employee with id "+id+" deleted successfully"),  HttpStatus.OK);
@@ -69,7 +69,7 @@ public class EmployeeService {
        public Employee updateEmployee(Long id, Employee employee) {
            Optional<Employee> optionalEmployee = this.employeeRepository.findById(id);
            if(optionalEmployee.isEmpty()){
-               throw new DataNotFoundException("The employee with id "+id+"does not exist");
+               throw new DataNotFoundException("The employee with id "+id+" does not exist");
            }
            optionalEmployee.get().setName(employee.getName());
            optionalEmployee.get().setAddress(employee.getAddress());

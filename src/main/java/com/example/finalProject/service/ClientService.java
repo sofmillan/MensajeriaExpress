@@ -29,7 +29,7 @@ public class ClientService {
     public Client addClient(Client client){
         Optional<Client> optionalClient = clientRepository.findById(client.getId());
         if(optionalClient.isPresent()){
-            throw new DataAlreadyExistsException("Id already exists");
+            throw new DataAlreadyExistsException("Id "+client.getId() +"already exists");
         }
         if(!validateEmail(client.getEmail()) ){
             throw new InvalidDataException("Email is not valid");
@@ -55,7 +55,7 @@ public class ClientService {
     public ResponseEntity<Object> deleteClient(Long id){
         Optional<Client> optionalClient = this.clientRepository.findById(id);
         if(optionalClient.isEmpty()){
-            throw new DataNotFoundException("Id does not exist");
+            throw new DataNotFoundException("The client with id "+id+" does not exist");
         }
         this.clientRepository.deleteById(id);
         return new ResponseEntity<>(new DeletedSuccessfully("Client with id "+id+" deleted successfully"),  HttpStatus.OK);
