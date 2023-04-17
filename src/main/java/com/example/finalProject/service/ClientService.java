@@ -30,10 +30,13 @@ public class ClientService {
         if(optionalClient.isPresent()){
             throw new DataAlreadyExistsException("Id already exists");
         }
-        if(validateEmail(client.getEmail()) && validateId(client.getId())){
-            return this.clientRepository.save(client);
+        if(!validateEmail(client.getEmail()) ){
+            throw new InvalidDataException("Email is not valid");
         }
-        throw new InvalidDataException("Data is not valid");
+        if(!validateId(client.getId())){
+            throw new InvalidDataException("Id is not valid");
+        }
+        return this.clientRepository.save(client);
     }
 
     public Client getClient(Long id){
@@ -41,7 +44,6 @@ public class ClientService {
         if(optionalClient.isEmpty()){
             throw new DataNotFoundException("The client with id "+id+" does not exist");
         }
-
         return optionalClient.get();
     }
 
@@ -82,7 +84,7 @@ public class ClientService {
         return matcher.find();
     }
     public boolean validateId(Long id){
-        String s = Long.toString(id);
-        return s.length() <= 10;
+        String idString = Long.toString(id);
+        return idString.length() <= 10;
     }
 }
