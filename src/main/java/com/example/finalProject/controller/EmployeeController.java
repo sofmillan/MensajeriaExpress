@@ -13,9 +13,9 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
+@Api(tags="Employee")
 @RestController
 @RequestMapping("api/v1")
-
 public class EmployeeController {
     private final EmployeeService employeeService;
 

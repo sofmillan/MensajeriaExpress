@@ -84,7 +84,6 @@ public class EmployeeService {
            return this.employeeRepository.save(optionalEmployee.get());
     }
 
-
     public boolean validateEmail(String email){
         Pattern pattern = Pattern
                 .compile("^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@"
