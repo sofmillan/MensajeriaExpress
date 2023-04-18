@@ -24,6 +24,11 @@ public class Delivery {
 
     public Delivery(){}
 
+    public Delivery(String guideNumber, String deliveryStatus) {
+        this.guideNumber = guideNumber;
+        this.deliveryStatus = deliveryStatus;
+    }
+
     public Delivery(Client client, Package package1, String destinationCity, String originCity, String destinationAddress,
                     String receiverName, Long receiverPhoneNumber, String deliveryStatus, Double deliveryValue) {
         this.guideNumber = UUID.randomUUID().toString();
