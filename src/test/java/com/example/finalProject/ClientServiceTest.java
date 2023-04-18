@@ -4,7 +4,6 @@ import com.example.finalProject.exception.DataAlreadyExistsException;
 import com.example.finalProject.exception.DataNotFoundException;
 import com.example.finalProject.exception.InvalidDataException;
 import com.example.finalProject.model.Client;
-import com.example.finalProject.model.Employee;
 import com.example.finalProject.repository.ClientRepository;
 import com.example.finalProject.service.ClientService;
 import org.junit.Before;
@@ -84,7 +83,7 @@ public class ClientServiceTest {
     }
 
     @Test
-    public void GetClient_FoundClient(){
+    public void Should_FindClient_When_GetClient(){
         Client client = new Client(123L,"Sofia","Millan",123123L,"isabella@gmail.com",
                 "Cll26","Medellín");
 

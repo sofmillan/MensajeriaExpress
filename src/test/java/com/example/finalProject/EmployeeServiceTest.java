@@ -1,9 +1,8 @@
 package com.example.finalProject;
 
 import com.example.finalProject.exception.DataAlreadyExistsException;
+import com.example.finalProject.exception.DataNotFoundException;
 import com.example.finalProject.exception.InvalidDataException;
-
-import com.example.finalProject.model.Client;
 import com.example.finalProject.repository.EmployeeRepository;
 
 import com.example.finalProject.model.Employee;
@@ -65,7 +64,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void GetEmployee_FoundClient(){
+    public void Should_FindEmployee_When_GetEmployee(){
         Employee employee = new Employee(1L,"Sofia","Millan",123123L,"isabellagmail.com",
                 "Cll26","Medellín",1,"o+","coordinator");
 
@@ -77,11 +76,49 @@ public class EmployeeServiceTest {
 
     }
 
- /*   @Test(expected = DataAlreadyExistsException.class)
-    public void Should_ThrowException_When_IdAlreadyExists(){
+    @Test(expected = DataNotFoundException.class)
+    public void Should_ThrowException_When_GetEmployee_IdNotFound(){
+        Long id = 123L;
+        when(employeeRepository.findById(id)).thenReturn(Optional.empty());
 
+        Employee employee = this.employeeService.getEmployee(id);
 
-    }*/
+        verify(employeeRepository.findById(employee.getId()));
+    }
 
+    @Test(expected = DataAlreadyExistsException.class)
+    public void Should_ThrowException_When_IdExists(){
+        Employee employee1 = new Employee(1L,"Sofia","Millan",123123L,"isabella@gmail.com",
+                "Cll26","Medellín",1,"o+","coordinator");
+        Employee employee2 = new Employee(1L,"Sofia","Millan",123123L,"isabella@gmail.com",
+                "Cll26","Medellín",1,"o+","coordinator");
+
+        when(employeeRepository.save(employee2)).thenThrow(DataAlreadyExistsException.class);
+
+        Employee createdEmployee1 = this.employeeService.addEmployee(employee1);
+        Employee createdEmployee2 = this.employeeService.addEmployee(employee2);
+
+        verify(employeeRepository.save(createdEmployee2));
+    }
+
+    @Test(expected = DataNotFoundException.class)
+    public void Should_ThrowException_When_UpdateEmployee_IdNotFound(){
+        Long id = 123L;
+        when(employeeRepository.findById(id)).thenReturn(Optional.empty());
+
+        Employee employee = this.employeeService.updateEmployee(id, new Employee(1L,"Sofia","Millan",123123L,"isabella@gmail.com",
+                "Cll26","Medellín",1,"o+","coordinator") );
+
+        verify(employeeRepository.save(employee));
+    }
+
+    @Test
+    public void CreateEmployeeTest(){
+        Employee employee = new Employee(1L,"Sofia","Millan",123123L,"isabella@gmail.com",
+                "Cll26","Medellín",1,"o+","coordinator");
+
+        Employee createdEmployee = this.employeeService.addEmployee(employee);
+        verify(employeeRepository).save(employee);
+    }
 
 }
