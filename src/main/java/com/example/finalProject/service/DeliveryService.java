@@ -111,29 +111,29 @@ public class DeliveryService {
         }
         if(optionalDelivery.isEmpty()){
             throw new DataNotFoundException("The delivery with guide number "+deliveryUpdate.getGuideNumber()+" does not exist");
-
         }
         Delivery delivery = optionalDelivery.get();
         String employeeType = optionalEmployee.get().getType();
         if(employeeType.equalsIgnoreCase( "driver")){
             throw new InvalidDataException(employeeType+ "employee type cannot update a delivery");
         }
-        if(delivery.getDeliveryStatus().equals("Received")){
-            if(deliveryUpdate.getDeliveryStatus().equals("On route")){
-                optionalDelivery.get().setDeliveryStatus("On route");
-            } else{
+        switch (delivery.getDeliveryStatus()) {
+            case "Received":
+                if (deliveryUpdate.getDeliveryStatus().equals("On route")) {
+                    optionalDelivery.get().setDeliveryStatus("On route");
+                } else {
+                    throw new InvalidDataException("The status update is not valid");
+                }
+                break;
+            case "On route":
+                if (deliveryUpdate.getDeliveryStatus().equals("Delivered")) {
+                    optionalDelivery.get().setDeliveryStatus("Delivered");
+                } else {
+                    throw new InvalidDataException("The status update is not valid");
+                }
+                break;
+            case "Delivered":
                 throw new InvalidDataException("The status update is not valid");
-            }
-        }
-        else if(delivery.getDeliveryStatus().equals("On route")){
-            if(deliveryUpdate.getDeliveryStatus().equals("Delivered")){
-                optionalDelivery.get().setDeliveryStatus("Delivered");
-            }else{
-                throw new InvalidDataException("The status update is not valid");
-            }
-        }
-        else if(delivery.getDeliveryStatus().equals("Delivered")){
-            throw new InvalidDataException("The status update is not valid");
         }
         this.deliveryRepository.save(optionalDelivery.get());
 
