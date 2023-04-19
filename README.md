@@ -32,7 +32,8 @@ To create a client on the database you must provide an id (number max 10 digits)
 	"city": "Medellín"
 }
 ```
-#### POST: api/v1/client/{clientId}
+<br>
+#### GET: api/v1/client/{clientId}
 To retrieve an existent client's information from the database just indicate the client's id in the path.
 **Request example:**
 ```url
