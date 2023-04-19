@@ -11,7 +11,7 @@ To create a client on the database you must provide an id (number max 10 digits)
 **Request example:**
 ```json
 {
-	"id": 1,
+	"id": 123,
 	"name": "Sofia",
 	"lastName": "Millan",
 	"phoneNumber": 123123,
@@ -23,7 +23,25 @@ To create a client on the database you must provide an id (number max 10 digits)
 **Expected response:**
 ```json
 {
-	"id": 1,
+	"id": 123,
+	"name": "Sofia",
+	"lastName": "Millan",
+	"phoneNumber": 123123,
+	"email": "isabella@gmail.com",
+	"address": "Cll26",
+	"city": "Medellín"
+}
+```
+#### POST: api/v1/client/{clientId}
+To retrieve an existent client's information from the database just indicate the client's id in the path.
+**Request example:**
+```url
+(http://localhost:8080/api/v1/client/123)
+```
+**Expected response:**
+```json
+{
+	"id": 123,
 	"name": "Sofia",
 	"lastName": "Millan",
 	"phoneNumber": 123123,
