@@ -5,6 +5,7 @@ import com.example.finalProject.service.EmployeeService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -47,6 +48,7 @@ public class EmployeeController {
             @ApiResponse(code = 200, message = "Employee was deleted successfully"),
             @ApiResponse(code = 500, message = "Employee not found"),
     })
+    @PreAuthorize("hasRole('WRITE')")
     @DeleteMapping("/employee/{id}")
     public ResponseEntity<Object> deleteEmployee(@ApiParam("Employee's id (e.g 123)") @PathVariable Long id){
         return this.employeeService.deleteEmployee(id);
@@ -56,8 +58,8 @@ public class EmployeeController {
             @ApiResponse(code = 200, message = "Employee updated successfully"),
             @ApiResponse(code = 400, message = "Data is not valid, check the input"),
             @ApiResponse(code = 500, message = "Employee not found"),
-    }
-    )
+    })
+    @PreAuthorize("hasRole('WRITE')")
     @PutMapping("/employee/{id}")
     public ResponseEntity<Employee> updateEmployee(@ApiParam("Employee's id (e.g 123)") @PathVariable Long id,
                                    @ApiParam("Updated employee's information")@RequestBody Employee employee){

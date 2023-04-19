@@ -28,7 +28,7 @@ public class ClientService {
     public Client addClient(Client client){
         Optional<Client> optionalClient = clientRepository.findById(client.getId());
         if(optionalClient.isPresent()){
-            throw new DataAlreadyExistsException("Id "+client.getId() +"already exists");
+            throw new DataAlreadyExistsException("Id "+client.getId() +" already exists");
         }
         if(client.getId()==null){
             throw new InvalidDataException("Please fill the id input");

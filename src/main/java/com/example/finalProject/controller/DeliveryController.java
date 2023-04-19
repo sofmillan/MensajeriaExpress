@@ -4,6 +4,7 @@ import com.example.finalProject.dto.*;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import com.example.finalProject.service.DeliveryService;
 
@@ -48,6 +49,7 @@ public class DeliveryController {
             @ApiResponse(code = 200, message = "Deliveries retrieved successfully"),
             @ApiResponse(code = 400, message = "Data is not valid, check the input")
     })
+    @PreAuthorize("hasRole('READ')")
     @GetMapping("/delivery")
     public List<DeliveryResponseDTO> filterByStatus(@ApiParam("Delivery status (e.g Received)")@RequestParam String status, @ApiParam("Employee's id (e.g 123)")@RequestParam Long employeeId){
         return this.deliveryService.filterByStatus(status, employeeId);
@@ -59,6 +61,7 @@ public class DeliveryController {
             @ApiResponse(code = 400, message = "Data is not valid, check the input"),
             @ApiResponse(code = 500, message = "Data not found"),
     })
+    @PreAuthorize("hasRole('WRITE')")
     @PutMapping("/delivery")
     public ResponseEntity<DeliveryStatusDTO> updateStatus(@ApiParam("Updated delivery information") @RequestBody DeliveryUpdateRequestDTO deliveryUpdate){
         DeliveryStatusDTO statusUpdate = this.deliveryService.updateStatus(deliveryUpdate);

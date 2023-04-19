@@ -5,6 +5,7 @@ import com.example.finalProject.service.ClientService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @Api(tags="Client")
@@ -18,14 +19,13 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-
     @ApiOperation(value = "Create a new client")
     @ApiResponses( value= {
             @ApiResponse(code = 200, message = "Client created successfully"),
             @ApiResponse(code = 400, message = "Data is not valid, check the input"),
             @ApiResponse(code = 409, message = "Client already exists, check the id"),
     })
-    @PostMapping("/client")
+    @PostMapping("/public")
     public ResponseEntity<Client> addClient(@ApiParam("Client's information") @RequestBody Client client){
         Client createdClient = this.clientService.addClient(client);
         return ResponseEntity.ok(createdClient);
@@ -49,6 +49,7 @@ public class ClientController {
             @ApiResponse(code = 200, message = "Client was found"),
             @ApiResponse(code = 500, message = "Client not found"),
     })
+    @PreAuthorize("hasRole('WRITE')")
     @DeleteMapping("/client/{id}")
     public ResponseEntity<Object> deleteClient(@ApiParam("Client's id (e.g 123)") @PathVariable Long id){
         return this.clientService.deleteClient(id);
@@ -60,6 +61,7 @@ public class ClientController {
             @ApiResponse(code = 400, message = "Data is not valid, check the input"),
             @ApiResponse(code = 500, message = "Client not found"),
     })
+    @PreAuthorize("hasRole('WRITE')")
     @PutMapping("/client/{id}")
     public ResponseEntity<Client> updateClient(@ApiParam("Client's id (e.g 123)") @PathVariable Long id,
                                                 @ApiParam("Updated client's information") @RequestBody Client client){
