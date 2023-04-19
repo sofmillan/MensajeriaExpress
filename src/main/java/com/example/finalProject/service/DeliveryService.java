@@ -115,21 +115,21 @@ public class DeliveryService {
         }
         switch (delivery.getDeliveryStatus()) {
             case "Received":
-                if (deliveryUpdate.getDeliveryStatus().equals("On route")) {
+                if (deliveryUpdate.getDeliveryStatus().equalsIgnoreCase("On route")) {
                     optionalDelivery.get().setDeliveryStatus("On route");
                 } else {
-                    throw new InvalidDataException("The status update is not valid");
+                    throw new InvalidDataException("The status "+deliveryUpdate.getDeliveryStatus()+" is not valid. Try 'On route'");
                 }
                 break;
             case "On route":
-                if (deliveryUpdate.getDeliveryStatus().equals("Delivered")) {
+                if (deliveryUpdate.getDeliveryStatus().equalsIgnoreCase("Delivered")) {
                     optionalDelivery.get().setDeliveryStatus("Delivered");
                 } else {
-                    throw new InvalidDataException("The status update is not valid");
+                    throw new InvalidDataException("The status "+deliveryUpdate.getDeliveryStatus()+" is not valid. Try 'Delivered'");
                 }
                 break;
             case "Delivered":
-                throw new InvalidDataException("The status update is not valid");
+                throw new InvalidDataException("The status Delivered cannot be updated");
         }
         this.deliveryRepository.save(optionalDelivery.get());
 
