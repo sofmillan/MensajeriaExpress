@@ -115,14 +115,14 @@ public class DeliveryService {
         }
         switch (delivery.getDeliveryStatus()) {
             case "Received":
-                if (deliveryUpdate.getDeliveryStatus().equalsIgnoreCase("On route")) {
+                if (deliveryUpdate.getDeliveryStatus().equals("On route")) {
                     optionalDelivery.get().setDeliveryStatus("On route");
                 } else {
                     throw new InvalidDataException("The status "+deliveryUpdate.getDeliveryStatus()+" is not valid. Try 'On route'");
                 }
                 break;
             case "On route":
-                if (deliveryUpdate.getDeliveryStatus().equalsIgnoreCase("Delivered")) {
+                if (deliveryUpdate.getDeliveryStatus().equals("Delivered")) {
                     optionalDelivery.get().setDeliveryStatus("Delivered");
                 } else {
                     throw new InvalidDataException("The status "+deliveryUpdate.getDeliveryStatus()+" is not valid. Try 'Delivered'");
