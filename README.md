@@ -33,8 +33,8 @@ To create a client on the database you must provide an id (number max 10 digits)
 }
 ```
 <br>
-#### GET: api/v1/client/clientId 
-To retrieve an existent client's information from the database just indicate the client's id in the path.
+#### POST: api/v1/client
+To create a client on the database you must provide an id (number max 10 digits),  name (string), last name (string), phone number (number), email (string), address (string) and city (string). 
 
 **Request example:**
 ```
