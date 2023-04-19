@@ -47,7 +47,9 @@ public class ClientController {
     @ApiOperation(value = "Delete a client by a specific id")
     @ApiResponses( value= {
             @ApiResponse(code = 200, message = "Client was found"),
-            @ApiResponse(code = 500, message = "Client not found"),
+            @ApiResponse(code = 401, message = "You must authenticate to get a response"),
+            @ApiResponse(code = 403, message = "You do not have access to this content"),
+            @ApiResponse(code = 500, message = "Client not found")
     })
     @PreAuthorize("hasRole('WRITE')")
     @DeleteMapping("/client/{id}")
@@ -59,7 +61,9 @@ public class ClientController {
     @ApiResponses( value= {
             @ApiResponse(code = 200, message = "Client was updated successfully"),
             @ApiResponse(code = 400, message = "Data is not valid, check the input"),
-            @ApiResponse(code = 500, message = "Client not found"),
+            @ApiResponse(code = 401, message = "You must authenticate to get a response"),
+            @ApiResponse(code = 403, message = "You do not have access to this content"),
+            @ApiResponse(code = 500, message = "Client not found")
     })
     @PreAuthorize("hasRole('WRITE')")
     @PutMapping("/client/{id}")

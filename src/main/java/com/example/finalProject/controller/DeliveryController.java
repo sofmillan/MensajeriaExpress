@@ -59,7 +59,9 @@ public class DeliveryController {
     @ApiResponses( value= {
             @ApiResponse(code = 200, message = "Delivery updated successfully"),
             @ApiResponse(code = 400, message = "Data is not valid, check the input"),
-            @ApiResponse(code = 500, message = "Data not found"),
+            @ApiResponse(code = 401, message = "You must authenticate to get a response"),
+            @ApiResponse(code = 403, message = "You do not have access to this content"),
+            @ApiResponse(code = 500, message = "Data not found")
     })
     @PreAuthorize("hasRole('WRITE')")
     @PutMapping("/delivery")

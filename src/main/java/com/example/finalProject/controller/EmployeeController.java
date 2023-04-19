@@ -46,7 +46,9 @@ public class EmployeeController {
     @ApiOperation(value = "Delete an employee by a specific id")
     @ApiResponses( value= {
             @ApiResponse(code = 200, message = "Employee was deleted successfully"),
-            @ApiResponse(code = 500, message = "Employee not found"),
+            @ApiResponse(code = 401, message = "You must authenticate to get a response"),
+            @ApiResponse(code = 403, message = "You do not have access to this content"),
+            @ApiResponse(code = 500, message = "Employee not found")
     })
     @PreAuthorize("hasRole('WRITE')")
     @DeleteMapping("/employee/{id}")
@@ -57,7 +59,9 @@ public class EmployeeController {
     @ApiResponses( value= {
             @ApiResponse(code = 200, message = "Employee updated successfully"),
             @ApiResponse(code = 400, message = "Data is not valid, check the input"),
-            @ApiResponse(code = 500, message = "Employee not found"),
+            @ApiResponse(code = 401, message = "You must authenticate to get a response"),
+            @ApiResponse(code = 403, message = "You do not have access to this content"),
+            @ApiResponse(code = 500, message = "Employee not found")
     })
     @PreAuthorize("hasRole('WRITE')")
     @PutMapping("/employee/{id}")
