@@ -23,7 +23,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class BasicAuthConfiguration {
 
-    @Value("${username}")
+    @Value("${identification}")
     private String username;
 
     @Value("${password}")
