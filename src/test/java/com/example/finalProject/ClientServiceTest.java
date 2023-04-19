@@ -27,7 +27,9 @@ public class ClientServiceTest {
     public void Should_ThrowException_When_IdNull(){
         Client client = new Client(null,"Sofia","Millan",123123L,"isabella@gmail.com",
                 "Cll26","Medellín");
+
         Client createdClient = this.clientService.addClient(client);
+
         verify(clientRepository.save(createdClient));
     }
 
@@ -35,7 +37,9 @@ public class ClientServiceTest {
     public void Should_ThrowException_When_IdNotValid(){
         Client client = new Client(12345678910L,"Sofia","Millan",123123L,"isabella@gmail.com",
                 "Cll26","Medellín");
+
         Client createdClient = this.clientService.addClient(client);
+
         verify(clientRepository.save(createdClient));
     }
 
@@ -43,12 +47,14 @@ public class ClientServiceTest {
     public void Should_ThrowException_When_EmailNotValid(){
         Client client = new Client(123L,"Sofia","Millan",123123L,"isabellagmail.com",
                 "Cll26","Medellín");
+
         Client createdClient = this.clientService.addClient(client);
+
         verify(clientRepository.save(createdClient));
     }
 
     @Test(expected = DataNotFoundException.class)
-    public void Should_ThrowException_When_IdNotFoundGet(){
+    public void Should_ThrowException_When_GetClient_IdNotFound(){
         Long id = 123L;
         when(clientRepository.findById(id)).thenReturn(Optional.empty());
 
@@ -58,11 +64,13 @@ public class ClientServiceTest {
     }
 
     @Test(expected = DataNotFoundException.class)
-    public void Should_ThrowException_When_IdNotFoundUpdate(){
+    public void Should_ThrowException_When_UpdateClient_IdNotFound(){
         Long id = 123L;
         when(clientRepository.findById(id)).thenReturn(Optional.empty());
+
         Client client = this.clientService.updateClient(id, new Client(123L,"Sofia","Millan",123123L,"isabellagmail.com",
                 "Cll26","Medellín") );
+
         verify(clientRepository.save(client));
     }
 
@@ -73,7 +81,6 @@ public class ClientServiceTest {
                 "Cll26","Medellín");
         Client client2 = new Client(1L,"Sofia","Millan",123123L,"isabella@gmail.com",
                 "Cll26","Medellín");
-
         when(clientRepository.save(client2)).thenThrow(DataAlreadyExistsException.class);
 
         Client createdClient1 = this.clientService.addClient(client);
@@ -86,7 +93,6 @@ public class ClientServiceTest {
     public void Should_FindClient_When_GetClient(){
         Client client = new Client(123L,"Sofia","Millan",123123L,"isabella@gmail.com",
                 "Cll26","Medellín");
-
          when(clientRepository.findById(client.getId())).thenReturn(Optional.of(client));
 
          Optional<Client> optionalClient = clientRepository.findById(client.getId());
@@ -94,12 +100,13 @@ public class ClientServiceTest {
         assertTrue(optionalClient.isPresent());
     }
 
-
     @Test
     public void CreateClientTest(){
         Client client = new Client(1L,"Sofia","Millan",123123L,"isabella@gmail.com",
                 "Cll26","Medellín");
+
         Client createdClient = this.clientService.addClient(client);
+
         verify(clientRepository).save(client);
     }
 }

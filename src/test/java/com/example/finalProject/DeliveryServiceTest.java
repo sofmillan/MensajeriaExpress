@@ -7,19 +7,17 @@ import com.example.finalProject.exception.InvalidDataException;
 import com.example.finalProject.model.Client;
 import com.example.finalProject.model.Employee;
 import com.example.finalProject.model.Delivery;
-import com.example.finalProject.repository.DeliveryRepository;
-import com.example.finalProject.repository.EmployeeRepository;
-import com.example.finalProject.repository.PackageRepository;
+import com.example.finalProject.repository.*;
 import com.example.finalProject.service.DeliveryService;
+
 import org.junit.Before;
-import com.example.finalProject.repository.ClientRepository;
 import org.junit.Test;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.*;
-import static org.testng.AssertJUnit.*;
+
 
 public class DeliveryServiceTest {
 
@@ -105,11 +103,11 @@ public class DeliveryServiceTest {
     }
 
     @Test(expected = DataNotFoundException.class)
-    public void Should_ThrowException_When_FilterDeliveries_IdNotFound(){
+    public void Should_ThrowException_When_FilterDeliveries_EmployeeIdNotFound(){
         Long id = 123L;
         when(employeeRepository.findById(id)).thenReturn(Optional.empty());
 
-        List<DeliveryResponseDTO> actualizacion = deliveryService.filterByStatus("Received",id);
+        List<DeliveryResponseDTO> update = deliveryService.filterByStatus("Received",id);
 
         verify(employeeRepository.findById(id));
     }
@@ -125,7 +123,7 @@ public class DeliveryServiceTest {
     }
 
     @Test(expected = DataNotFoundException.class)
-    public void Should_ThrowException_When_UpdateDelivery_IdNotFound(){
+    public void Should_ThrowException_When_UpdateDelivery_EmployeeIdNotFound(){
         Long id = 123L;
         when(employeeRepository.findById(id)).thenReturn(Optional.empty());
 

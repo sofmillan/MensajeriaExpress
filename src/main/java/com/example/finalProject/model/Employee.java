@@ -1,15 +1,11 @@
 package com.example.finalProject.model;
 
-
-
 import com.sun.istack.NotNull;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-
 @Entity
 @Table(name="employee")
 public class Employee {

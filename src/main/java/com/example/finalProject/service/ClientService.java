@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.example.finalProject.repository.ClientRepository;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -51,10 +50,6 @@ public class ClientService {
         return optionalClient.get();
     }
 
-    public List<Client> getClients(){
-        return this.clientRepository.findAll();
-    }
-
     public ResponseEntity<Object> deleteClient(Long id){
         Optional<Client> optionalClient = this.clientRepository.findById(id);
         if(optionalClient.isEmpty()){
@@ -74,7 +69,7 @@ public class ClientService {
         optionalClient.get().setAddress(client.getAddress());
         optionalClient.get().setCity(client.getCity());
         optionalClient.get().setLastName(client.getLastName());
-        optionalClient.get().setEmail(client.getEmail());;
+        optionalClient.get().setEmail(client.getEmail());
         optionalClient.get().setPhoneNumber(client.getPhoneNumber());
         optionalClient.get().setId(id);
 
@@ -88,6 +83,7 @@ public class ClientService {
         Matcher matcher = pattern.matcher(email);
         return matcher.find();
     }
+
     public boolean validateId(Long id){
         String idString = Long.toString(id);
         return idString.length() <= 10;

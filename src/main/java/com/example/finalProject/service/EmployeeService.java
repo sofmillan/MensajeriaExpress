@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -49,18 +48,12 @@ public class EmployeeService {
     }
 
 
-
     public Employee getEmployee(Long id) {
         Optional<Employee> optionalEmployee = this.employeeRepository.findById(id);
         if(optionalEmployee.isEmpty()){
             throw new DataNotFoundException("The employee with id "+id+" does not exist");
         }
         return optionalEmployee.get();
-    }
-
-
-    public List<Employee> getEmployees() {
-        return this.employeeRepository.findAll();
     }
 
     public ResponseEntity<Object> deleteEmployee(Long id) {
@@ -81,7 +74,7 @@ public class EmployeeService {
            optionalEmployee.get().setAddress(employee.getAddress());
            optionalEmployee.get().setCity(employee.getCity());
            optionalEmployee.get().setLastName(employee.getLastName());
-           optionalEmployee.get().setEmail(employee.getEmail());;
+           optionalEmployee.get().setEmail(employee.getEmail());
            optionalEmployee.get().setBloodType(employee.getBloodType());
            optionalEmployee.get().setSeniority(employee.getSeniority());
            optionalEmployee.get().setType(employee.getType());
@@ -99,12 +92,9 @@ public class EmployeeService {
         return matcher.find();
     }
     public boolean validateType(String type){
-        if(type.equalsIgnoreCase("Coordinator")||
-                type.equalsIgnoreCase("Driver")||
-                type.equalsIgnoreCase("Delivery")){
-            return true;
-        }
-        return false;
+        return type.equalsIgnoreCase("Coordinator") ||
+                type.equalsIgnoreCase("Driver") ||
+                type.equalsIgnoreCase("Delivery");
     }
 
     public boolean validateId(Long id){
