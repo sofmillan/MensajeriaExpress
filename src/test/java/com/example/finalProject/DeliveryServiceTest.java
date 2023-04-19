@@ -115,6 +115,16 @@ public class DeliveryServiceTest {
     }
 
     @Test(expected = DataNotFoundException.class)
+    public void Should_ThrowException_When_GetDelivery_GuideNumberNotFound(){
+        String guideNumber = "2a1d6f88-debb-11ed";
+        when(deliveryRepository.findById(guideNumber)).thenReturn(Optional.empty());
+
+        DeliveryResponseDTO foundDelivery = deliveryService.getDelivery(guideNumber);
+
+        verify(deliveryRepository.findById(guideNumber));
+    }
+
+    @Test(expected = DataNotFoundException.class)
     public void Should_ThrowException_When_UpdateDelivery_IdNotFound(){
         Long id = 123L;
         when(employeeRepository.findById(id)).thenReturn(Optional.empty());
@@ -136,7 +146,7 @@ public class DeliveryServiceTest {
         verify(deliveryRepository.findById(guideNumber));
     }
     @Test(expected = InvalidDataException.class)
-    public void Should_ThrowException_When_UpdateDelivery_InvalidStatus(){
+    public void Should_ThrowException_When_UpdateDelivery_InvalidStatus_FromReceivedToDelivered(){
 
         Client client = new Client(123L,"Sofia","Millan",123123L,"isabella@gmail.com",
                 "Cll26","Medellín");
@@ -152,8 +162,7 @@ public class DeliveryServiceTest {
         Delivery delivery1 = new Delivery(confirmation.getGuideNumber(), confirmation.getDeliveryStatus());
         when(deliveryRepository.findById(confirmation.getGuideNumber())).thenReturn(Optional.of(delivery1));
 
-
-        DeliveryUpdateRequestDTO request= new DeliveryUpdateRequestDTO(confirmation.getGuideNumber(),"Deliveried",employee.getId());
+        DeliveryUpdateRequestDTO request= new DeliveryUpdateRequestDTO(confirmation.getGuideNumber(),"Delivered",employee.getId());
         DeliveryStatusDTO update = deliveryService.updateStatus(request);
         Optional<Delivery> delivery = deliveryRepository.findById(confirmation.getGuideNumber());
 
@@ -161,8 +170,8 @@ public class DeliveryServiceTest {
         verify(deliveryRepository).save(delivery.get());
     }
 
-    @Test
-    public void Should_ThrowException_When_UpdateDelivery_InvalidStatus1(){
+    @Test(expected = InvalidDataException.class)
+    public void Should_ThrowException_When_UpdateDelivery_InvalidStatus_FromRouteToReceived(){
 
         Client client = new Client(123L,"Sofia","Millan",123123L,"isabella@gmail.com",
                 "Cll26","Medellín");
@@ -181,9 +190,68 @@ public class DeliveryServiceTest {
         DeliveryUpdateRequestDTO request= new DeliveryUpdateRequestDTO(confirmation.getGuideNumber(),"On route",employee.getId());
         DeliveryUpdateRequestDTO request2= new DeliveryUpdateRequestDTO(confirmation.getGuideNumber(),"Received",employee.getId());
         DeliveryStatusDTO update = deliveryService.updateStatus(request);
+        DeliveryStatusDTO update2 = deliveryService.updateStatus(request2);
         Optional<Delivery> delivery = deliveryRepository.findById(confirmation.getGuideNumber());
 
         verify(deliveryRepository).save(delivery.get());
     }
+
+    @Test(expected = InvalidDataException.class)
+    public void Should_ThrowException_When_UpdateDelivery_InvalidStatus_FromDeliveredToReceived(){
+
+        Client client = new Client(123L,"Sofia","Millan",123123L,"isabella@gmail.com",
+                "Cll26","Medellín");
+        when(clientRepository.findById(client.getId())).thenReturn(Optional.of(client));
+
+        Employee employee = new Employee(123L,"Sofia","Millan",123123L,"isabella@gmail.com",
+                "Cll26","Medellín",1,"o+","coordinator");
+        when(employeeRepository.findById(employee.getId())).thenReturn(Optional.of(employee));
+
+        newDeliveryDTO newDelivery = new newDeliveryDTO(client.getId(),"Armenia","Medellín","Cll26",
+                "Ricky",900900L,19000.0,1.0);
+        DeliveryConfirmationDTO confirmation = deliveryService.createDelivery(newDelivery);
+        Delivery delivery1 = new Delivery(confirmation.getGuideNumber(), confirmation.getDeliveryStatus());
+        when(deliveryRepository.findById(confirmation.getGuideNumber())).thenReturn(Optional.of(delivery1));
+
+        DeliveryUpdateRequestDTO request= new DeliveryUpdateRequestDTO(confirmation.getGuideNumber(),"On route",employee.getId());
+        DeliveryUpdateRequestDTO request2= new DeliveryUpdateRequestDTO(confirmation.getGuideNumber(),"Delivered",employee.getId());
+        DeliveryUpdateRequestDTO request3= new DeliveryUpdateRequestDTO(confirmation.getGuideNumber(),"Received",employee.getId());
+        DeliveryStatusDTO update = deliveryService.updateStatus(request);
+        DeliveryStatusDTO update2 = deliveryService.updateStatus(request2);
+        DeliveryStatusDTO update3 = deliveryService.updateStatus(request3);
+        Optional<Delivery> delivery = deliveryRepository.findById(confirmation.getGuideNumber());
+
+        verify(deliveryRepository, times(3)).save(delivery.get());
+    }
+
+    @Test
+    public void Should_UpdateDelivery_When_UpdateStatus_ValidStatus(){
+
+        Client client = new Client(123L,"Sofia","Millan",123123L,"isabella@gmail.com",
+                "Cll26","Medellín");
+        when(clientRepository.findById(client.getId())).thenReturn(Optional.of(client));
+
+        Employee employee = new Employee(123L,"Sofia","Millan",123123L,"isabella@gmail.com",
+                "Cll26","Medellín",1,"o+","coordinator");
+        when(employeeRepository.findById(employee.getId())).thenReturn(Optional.of(employee));
+
+        newDeliveryDTO newDelivery = new newDeliveryDTO(client.getId(),"Armenia","Medellín","Cll26",
+                "Ricky",900900L,19000.0,1.0);
+        DeliveryConfirmationDTO confirmation = deliveryService.createDelivery(newDelivery);
+        Delivery delivery1 = new Delivery(confirmation.getGuideNumber(), confirmation.getDeliveryStatus());
+        when(deliveryRepository.findById(confirmation.getGuideNumber())).thenReturn(Optional.of(delivery1));
+
+        DeliveryUpdateRequestDTO request = new DeliveryUpdateRequestDTO(confirmation.getGuideNumber(),"On route",employee.getId());
+        DeliveryUpdateRequestDTO request2 = new DeliveryUpdateRequestDTO(confirmation.getGuideNumber(),"Delivered",employee.getId());
+
+        DeliveryStatusDTO update = deliveryService.updateStatus(request);
+        DeliveryStatusDTO update2 = deliveryService.updateStatus(request2);
+
+        Optional<Delivery> delivery = deliveryRepository.findById(confirmation.getGuideNumber());
+
+
+        verify(deliveryRepository, times(2)).save(delivery.get());
+    }
+
 
 }
