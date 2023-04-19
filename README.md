@@ -1,4 +1,5 @@
 # MensajeriaExpress
 
-Endpoints
-===
+##Endpoints
+***
+##Client related operations
