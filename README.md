@@ -33,12 +33,12 @@ To create a client on the database you must provide an id (number max 10 digits)
 }
 ```
 <br>
-#### GET: api/v1/client/{clientId}
+#### GET: api/v1/client/{clientId} \
 To retrieve an existent client's information from the database just indicate the client's id in the path.
 
 **Request example:**
 ```
-(http://localhost:8080/api/v1/client/123)
+http://localhost:8080/api/v1/client/123
 ```
 **Expected response:**
 ```json
