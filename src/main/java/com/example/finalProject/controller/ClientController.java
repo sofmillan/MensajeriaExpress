@@ -25,7 +25,7 @@ public class ClientController {
             @ApiResponse(code = 400, message = "Data is not valid, check the input"),
             @ApiResponse(code = 409, message = "Client already exists, check the id"),
     })
-    @PostMapping("/public")
+    @PostMapping("/client")
     public ResponseEntity<Client> addClient(@ApiParam("Client's information") @RequestBody Client client){
         Client createdClient = this.clientService.addClient(client);
         return ResponseEntity.ok(createdClient);
