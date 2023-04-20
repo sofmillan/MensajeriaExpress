@@ -3,7 +3,7 @@
 ## Endpoints
 
 ### Client related operations
-With the following endpoints you can execute all of the CRUD (create, read, update, delte) operations. \
+With the following endpoints you can execute all of the CRUD (create, read, update, delte) operations. 
 
 #### POST: api/v1/client
 To create a client on the database you must provide an id (number max 10 digits),  name (string), last name (string), phone number (number), email (string), address (string) and city (string). 
@@ -207,5 +207,117 @@ http://localhost:8080/api/v1/employee/123
 	"seniority":2,
 	"bloodType":"o+",
 	"type":"coordinator"
+}
+```
+---
+### Delivery related operations
+With the following endpoints you can create a new delivery (a client can order multiple deliveries), update a delivery status, filter deliveries by status and get a specific delivery's information. \
+<br>
+
+#### POST: api/v1/delivery
+To create a delivery on the database you must provide an existent client's id (number max 10 digits), origin city (string), destination city (string), the name of the person who will receive the package (string) and their phone number (number), the declared value of the package (number), the package's weight (number) and the destination address (string).
+
+**Request example:**
+```json
+{
+	"idClient":1,
+	"originCity":"Armenia",
+	"destinationCity":"Medellin",
+	"receiverName":"Ricky",
+	"receiverPhoneNumber":900900,
+	"packageDeclaredValue":19000,
+	"weight":1,
+	"destinationAddress":"cll26"
+}
+```
+**Expected response:**
+The service will generate a guide number to identify the delivery and the initial status will always be Received.
+```json
+{
+	"guideNumber": "6a483bc0-2e77-4b80-87dd-eccd81ade143",
+	"deliveryStatus": "Received"
+}
+```
+
+#### GET: api/v1/delivery/{deliveryGuideNumber}
+To retrieve an existent delivery's information from the database just indicate the delivery's guide number in the path.
+
+**Request example:**
+```
+http://localhost:8080/api/v1/delivery/6a483bc0-2e77-4b80-87dd-eccd81ade143
+```
+**Expected response:**
+```json
+{
+	"idClient": 1,
+	"originCity": "Armenia",
+	"destinationCity": "Medellin",
+	"destinationAddress": "cll26",
+	"receiverName": "Ricky",
+	"receiverPhoneNumber": 900900,
+	"packageDeclaredValue": 19000.0,
+	"weight": 1.0,
+	"deliveryValue": 30000.0,
+	"status": "Received",
+	"guideNumber": "6a483bc0-2e77-4b80-87dd-eccd81ade143"
+}
+```
+#### GET: api/v1/delivery?status={status}&employeeId={employeeId}
+To filter deliveries by status  just indicate the status and an existent employee's id.
+
+**Request example:**
+```
+http://localhost:8080/api/v1/delivery?status=Received&employeeId=1
+```
+**Expected response:**
+The service will return a list of the deliveries that satisfy that condition.
+```json
+[
+	{
+		"idClient": 1,
+		"originCity": "Armenia",
+		"destinationCity": "Medellin",
+		"destinationAddress": "cll26",
+		"receiverName": "Ricky",
+		"receiverPhoneNumber": 900900,
+		"packageDeclaredValue": 19000.0,
+		"weight": 1.0,
+		"deliveryValue": 30000.0,
+		"status": "Received",
+		"guideNumber": "6a483bc0-2e77-4b80-87dd-eccd81ade143"
+	},
+	{
+		"idClient": 1,
+		"originCity": "Armenia",
+		"destinationCity": "Medellin",
+		"destinationAddress": "cll86",
+		"receiverName": "Matthew",
+		"receiverPhoneNumber": 800800,
+		"packageDeclaredValue": 22000.0,
+		"weight": 2.0,
+		"deliveryValue": 30000.0,
+		"status": "Received",
+		"guideNumber": "1a773bc0-2b77-5a80-99dd-eaad81aed143"
+	}	
+]
+```
+
+#### PUT: api/v1/delivery
+To update an existent delivery's status indicate the employee's id, the delivery's guide number and the updated status. 
+(Note: the flow is Received -> On Route -> Delivered)
+
+**Request example:**
+```json
+{
+	"idEmployee":1,
+	"guideNumber":"6a483bc0-2e77-4b80-87dd-eccd81ade143",
+	"deliveryStatus":"On route"
+}
+```
+**Expected response:**
+```json
+{
+	"guideNumber": "6a483bc0-2e77-4b80-87dd-eccd81ade143",
+	"lastStatus": "On route"
 }
 ```
