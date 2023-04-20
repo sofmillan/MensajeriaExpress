@@ -4,7 +4,7 @@
 
 <img src="https://user-images.githubusercontent.com/98916125/233485325-c38403b7-4559-441f-aad7-0101fa0083a5.jpg"  width="650" />
 
-
+<img src="https://user-images.githubusercontent.com/98916125/233488361-74296e7f-e278-4c91-91ae-df39ef13b20a.jpg"  width="650" />
 ## Endpoints
 
 ### Client related operations
