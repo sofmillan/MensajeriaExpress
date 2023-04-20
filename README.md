@@ -178,7 +178,7 @@ To update an existent employee's information indicate the employee's id in the p
 
 **Request example:**
 ```
-http://localhost:8080/api/v1/employee/123
+http://localhost:8080/api/v1/employee/456
 ```
 ```json
 {
