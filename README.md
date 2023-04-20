@@ -2,7 +2,7 @@
 
 ## Diagrams
 
-<img src="https://user-images.githubusercontent.com/98916125/233475714-14bc9ea0-1e4f-4e87-98e9-055af6959540.jpg"  height="400" />
+<img src="https://user-images.githubusercontent.com/98916125/233477651-f9841dab-95ee-4bc0-98ae-86e38097be3f.jpg"  height="550" />
 
 
 ## Endpoints
