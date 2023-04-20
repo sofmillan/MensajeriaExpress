@@ -1,5 +1,10 @@
 # MensajeriaExpress
 
+## Diagrams
+
+<img src="https://user-images.githubusercontent.com/98916125/233475714-14bc9ea0-1e4f-4e87-98e9-055af6959540.jpg"  height="400" />
+
+
 ## Endpoints
 
 ### Client related operations
