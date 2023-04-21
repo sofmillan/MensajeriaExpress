@@ -23,39 +23,33 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class BasicAuthConfiguration {
 
-    @Value("${identification}")
-    private String username;
-
-    @Value("${password}")
-    private String password;
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http,
                                     AuthenticationManager authManager) throws Exception {
         return http
-                .csrf().disable()
-                .authorizeHttpRequests((authz)->authz
-                        .antMatchers(HttpMethod.POST).permitAll()
-                        .antMatchers(HttpMethod.GET).permitAll()
-                        .anyRequest().authenticated()
-                )
                 .httpBasic()
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .build();
+                .and().authorizeHttpRequests()
+                .antMatchers(HttpMethod.GET).hasAuthority("READ")
+                .antMatchers(HttpMethod.POST).hasAuthority("WRITE")
+                .antMatchers(HttpMethod.PUT).hasAuthority("WRITE")
+                .antMatchers(HttpMethod.DELETE).hasAuthority("WRITE")
+                .and().csrf().disable().build();
     }
 
     @Bean
     UserDetailsService userDetailsService() {
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.withUsername(username)
-                .password(passwordEncoder().encode(password))
-                .roles("WRITE","READ")
-                .build()
+        return new InMemoryUserDetailsManager(
+                User.withUsername("admin")
+                        .password(passwordEncoder().encode("lovelicky"))
+                        .authorities("READ","WRITE")
+                        .build(),
+                User.withUsername("user")
+                        .password(passwordEncoder().encode("gguggugi"))
+                        .authorities("READ")
+                        .build()
+
         );
-        return manager;
     }
 
     @Bean

@@ -19,12 +19,14 @@ public class ClientController {
         this.clientService = clientService;
     }
 
+
     @ApiOperation(value = "Create a new client")
     @ApiResponses( value= {
             @ApiResponse(code = 200, message = "Client created successfully"),
             @ApiResponse(code = 400, message = "Data is not valid, check the input"),
             @ApiResponse(code = 409, message = "Client already exists, check the id"),
     })
+    @PreAuthorize("hasAuthority('WRITE')")
     @PostMapping("/client")
     public ResponseEntity<Client> addClient(@ApiParam("Client's information") @RequestBody Client client){
         Client createdClient = this.clientService.addClient(client);
@@ -37,6 +39,7 @@ public class ClientController {
             @ApiResponse(code = 200, message = "Client was found"),
             @ApiResponse(code = 500, message = "Client not found"),
     })
+    @PreAuthorize("hasAuthority('READ')")
     @GetMapping("client/{id}")
     public ResponseEntity<Client> getClientById(@ApiParam("Client's id (e.g 123)")  @PathVariable Long id){
         Client foundClient = this.clientService.getClient(id);
@@ -51,7 +54,7 @@ public class ClientController {
             @ApiResponse(code = 403, message = "You do not have access to this content"),
             @ApiResponse(code = 500, message = "Client not found")
     })
-    @PreAuthorize("hasRole('WRITE')")
+    @PreAuthorize("hasAuthority('WRITE')")
     @DeleteMapping("/client/{id}")
     public ResponseEntity<Object> deleteClient(@ApiParam("Client's id (e.g 123)") @PathVariable Long id){
         return this.clientService.deleteClient(id);
@@ -65,7 +68,7 @@ public class ClientController {
             @ApiResponse(code = 403, message = "You do not have access to this content"),
             @ApiResponse(code = 500, message = "Client not found")
     })
-    @PreAuthorize("hasRole('WRITE')")
+    @PreAuthorize("hasAuthority('WRITE')")
     @PutMapping("/client/{id}")
     public ResponseEntity<Client> updateClient(@ApiParam("Client's id (e.g 123)") @PathVariable Long id,
                                                 @ApiParam("Updated client's information") @RequestBody Client client){

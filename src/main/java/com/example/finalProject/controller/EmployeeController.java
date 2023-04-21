@@ -26,6 +26,7 @@ public class EmployeeController {
             @ApiResponse(code = 400, message = "Data is not valid, check the input"),
             @ApiResponse(code = 409, message = "Employee already exists, check the id"),
     })
+    @PreAuthorize("hasAuthority('WRITE')")
     @PostMapping("/employee")
     public ResponseEntity<Employee> addEmployee(@ApiParam("Employee's information") @RequestBody Employee employee) {
         Employee createdEmployee = employeeService.addEmployee(employee);
@@ -37,6 +38,7 @@ public class EmployeeController {
             @ApiResponse(code = 200, message = "Employee was found"),
             @ApiResponse(code = 500, message = "Employee not found"),
     })
+    @PreAuthorize("hasAuthority('READ')")
     @GetMapping("/employee/{id}")
     public ResponseEntity<Employee> getEmployeeById(@ApiParam("Employee's id (e.g 123)") @PathVariable Long id){
         Employee foundEmployee = this.employeeService.getEmployee(id);
@@ -50,7 +52,7 @@ public class EmployeeController {
             @ApiResponse(code = 403, message = "You do not have access to this content"),
             @ApiResponse(code = 500, message = "Employee not found")
     })
-    @PreAuthorize("hasRole('WRITE')")
+    @PreAuthorize("hasAuthority('WRITE')")
     @DeleteMapping("/employee/{id}")
     public ResponseEntity<Object> deleteEmployee(@ApiParam("Employee's id (e.g 123)") @PathVariable Long id){
         return this.employeeService.deleteEmployee(id);
@@ -63,7 +65,7 @@ public class EmployeeController {
             @ApiResponse(code = 403, message = "You do not have access to this content"),
             @ApiResponse(code = 500, message = "Employee not found")
     })
-    @PreAuthorize("hasRole('WRITE')")
+    @PreAuthorize("hasAuthority('WRITE')")
     @PutMapping("/employee/{id}")
     public ResponseEntity<Employee> updateEmployee(@ApiParam("Employee's id (e.g 123)") @PathVariable Long id,
                                    @ApiParam("Updated employee's information")@RequestBody Employee employee){
