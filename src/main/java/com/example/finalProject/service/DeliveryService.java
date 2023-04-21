@@ -58,10 +58,10 @@ public class DeliveryService {
             throw new InvalidDataException("The weight is not valid");
         }
 
-        Package package1 = new Package(packageType, newDeliveryDTO.getWeight(), newDeliveryDTO.getPackageDeclaredValue());
-        packageRepository.save(package1);
+        Package Package1 = new Package(packageType, newDeliveryDTO.getWeight(), newDeliveryDTO.getPackageDeclaredValue());
+        packageRepository.save(Package1);
 
-        Delivery delivery = new Delivery(optionalClient.get(),package1, newDeliveryDTO.getDestinationCity(), newDeliveryDTO.getOriginCity(), newDeliveryDTO.getDestinationAddress(), newDeliveryDTO.getReceiverName(), newDeliveryDTO.getReceiverPhoneNumber(),"Received",deliveryValue);
+        Delivery delivery = new Delivery(optionalClient.get(), Package1, newDeliveryDTO.getDestinationCity(), newDeliveryDTO.getOriginCity(), newDeliveryDTO.getDestinationAddress(), newDeliveryDTO.getReceiverName(), newDeliveryDTO.getReceiverPhoneNumber(),"Received",deliveryValue);
         deliveryRepository.save(delivery);
 
         return new DeliveryConfirmationDTO(delivery.getGuideNumber(), delivery.getDeliveryStatus());

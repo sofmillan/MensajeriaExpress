@@ -7,10 +7,10 @@ import javax.persistence.Table;
 import java.util.UUID;
 
 @Entity
-@Table(name="package")
+@Table(name="packages")
 public class Package {
     @Id
-    @Column(name="identifier")
+    @Column(name="idPackage")
     private String identifier;
     @Column(name="packageType")
     private String type;

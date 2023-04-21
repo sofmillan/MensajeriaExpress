@@ -3,6 +3,7 @@ package com.example.finalProject.model;
 import com.sun.istack.NotNull;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -10,16 +11,26 @@ import javax.persistence.Table;
 @Table(name="employee")
 public class Employee {
     @Id
+    @Column(name="idEmployee")
     private Long id;
+    @Column(name="name")
     private String name;
+    @Column(name="lastName")
     private String lastName;
+    @Column(name="phoneNumber")
     private Long phoneNumber;
+    @Column(name="email")
     private String email;
+    @Column(name="address")
     private String address;
+    @Column(name="city")
     private String city;
+    @Column(name="seniority")
     private Integer seniority;
+    @Column(name="bloodType")
     private String bloodType;
     @NotNull
+    @Column(name="type")
     private String type;
 
     public Employee(){}

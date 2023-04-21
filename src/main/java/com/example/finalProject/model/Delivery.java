@@ -7,19 +7,27 @@ import java.util.UUID;
 @Table(name="delivery")
 public class Delivery {
     @Id
+    @Column(name="guideNumber")
     private String guideNumber;
     @ManyToOne
-    @JoinColumn(name="id")
+    @JoinColumn(name="idClient")
     private Client client;
     @OneToOne
-    @JoinColumn(name="identifier")
+    @JoinColumn(name="idPackage")
     private Package package1;
+    @Column(name="destinationCity")
     private String destinationCity;
+    @Column(name="originCity")
     private String originCity;
+    @Column(name="destinationAddress")
     private String destinationAddress;
+    @Column(name="receiverName")
     private String receiverName;
+    @Column(name="receiverPhoneNumber")
     private Long receiverPhoneNumber;
+    @Column(name="deliveryStatus")
     private String deliveryStatus;
+    @Column(name="deliveryValue")
     private Double deliveryValue;
 
     public Delivery(){}
@@ -29,11 +37,11 @@ public class Delivery {
         this.deliveryStatus = deliveryStatus;
     }
 
-    public Delivery(Client client, Package package1, String destinationCity, String originCity, String destinationAddress,
+    public Delivery(Client client, Package Package1, String destinationCity, String originCity, String destinationAddress,
                     String receiverName, Long receiverPhoneNumber, String deliveryStatus, Double deliveryValue) {
         this.guideNumber = UUID.randomUUID().toString();
         this.client = client;
-        this.package1 = package1;
+        this.package1 = Package1;
         this.destinationCity = destinationCity;
         this.originCity = originCity;
         this.destinationAddress = destinationAddress;
@@ -63,8 +71,8 @@ public class Delivery {
         return package1;
     }
 
-    public void setPackage1(Package package1) {
-        this.package1 = package1;
+    public void setPackage1(Package Package1) {
+        this.package1 = Package1;
     }
 
     public String getDestinationCity() {

@@ -1,20 +1,31 @@
 package com.example.finalProject.model;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="client")
+@Table(name="clients")
+@DynamicInsert
 public class Client {
     @Id
+    @Column(name="idClient")
     private Long id;
+    @Column(name="name")
     private String name;
+    @Column(name="lastName")
     private String lastName;
+    @Column(name="phoneNumber")
     private Long phoneNumber;
+    @Column(name="email")
     private String email;
+    @Column(name="address")
     private String address;
-
+    @Column(name="city")
     private String city;
 
     public Client(){}
