@@ -1,5 +1,16 @@
-# MensajeriaExpress
+# Messenger service
+This repository contains the final project for MAKAIA's Backend Development Bootcamp and its main purpose is to evidence all of the syllabus that was taught throguh the last few months. This service provides a company a structure to manage data such as client's and employee's information, retrieved from a database, and create and track deliveries that clients made.
+This project was made with:
+- Java 
+- MySQL
 
+And here are some of the tools that Spring Framework allow us to use:
+- JUnit (for unit tests)
+- Swagger (for API documentation)
+- Spring Security ( for a basic authentication)
+- Spring Data (to store information in a database)
+
+It also implements Git for version management and continuous integration and Railways for deployment.
 ## Diagrams
 
 ### Client diagram
