@@ -2,11 +2,22 @@
 
 ## Diagrams
 
+### Client diagram
+
 <img src="https://user-images.githubusercontent.com/98916125/233485325-c38403b7-4559-441f-aad7-0101fa0083a5.jpg"  width="700" />
 
+### Employee diagram
 <img src="https://user-images.githubusercontent.com/98916125/233488361-74296e7f-e278-4c91-91ae-df39ef13b20a.jpg"  width="700" />
 
+### Delivery and Package diagram
 <img src="https://user-images.githubusercontent.com/98916125/233622128-e3211c65-8c42-4c74-80dc-1c9f771fb20e.jpg"  width="700" />
+
+### Exceptions diagram
+Since all of the previous packages use customized exceptions, here it is the diagram for them.
+<img src="https://user-images.githubusercontent.com/98916125/233626033-cc3bbecc-586f-4762-8739-e44f7451dd5e.jpg"  width="700" />
+
+### Database diagram
+<img src="https://user-images.githubusercontent.com/98916125/233628544-26455090-c344-453d-8eec-6ca081ffb446.jpg"  width="700" />
 
 ## Endpoints
 
