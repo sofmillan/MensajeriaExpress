@@ -29,7 +29,7 @@ public class DeliveryService {
         this.employeeRepository = employeeRepository;
     }
 
-    public DeliveryConfirmationDTO createDelivery(newDeliveryDTO newDeliveryDTO){
+    public DeliveryConfirmationDTO createDelivery(NewDeliveryDTO newDeliveryDTO){
         if(newDeliveryDTO.getDestinationCity()==null ||
         newDeliveryDTO.getIdClient()==null || newDeliveryDTO.getWeight() == null||
         newDeliveryDTO.getPackageDeclaredValue()==null || newDeliveryDTO.getReceiverName()==null||

@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel(value="Delivery")
-public class newDeliveryDTO {
+public class NewDeliveryDTO {
     private Long idClient;
     private String originCity;
     private String destinationCity;
@@ -16,10 +16,10 @@ public class newDeliveryDTO {
     private Double weight;
 
 
-    public newDeliveryDTO(){}
+    public NewDeliveryDTO(){}
 
 
-    public newDeliveryDTO(Long idClient, String originCity, String destinationCity, String destinationAddress, String receiverName,
+    public NewDeliveryDTO(Long idClient, String originCity, String destinationCity, String destinationAddress, String receiverName,
                           Long receiverPhoneNumber, Double packageDeclaredValue, Double weight) {
         this.idClient = idClient;
         this.originCity = originCity;

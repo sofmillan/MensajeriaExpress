@@ -28,7 +28,7 @@ public class DeliveryController {
             @ApiResponse(code = 400, message = "Data is not valid, check the input")
     })
     @PostMapping("/delivery")
-    public ResponseEntity<DeliveryConfirmationDTO> createDelivery(@ApiParam("Delivery's information") @RequestBody newDeliveryDTO newDeliveryDTO){
+    public ResponseEntity<DeliveryConfirmationDTO> createDelivery(@ApiParam("Delivery's information") @RequestBody NewDeliveryDTO newDeliveryDTO){
         DeliveryConfirmationDTO confirmation = this.deliveryService.createDelivery(newDeliveryDTO);
         return ResponseEntity.ok(confirmation);
     }
