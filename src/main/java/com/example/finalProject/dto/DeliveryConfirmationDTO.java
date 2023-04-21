@@ -1,10 +1,5 @@
 package com.example.finalProject.dto;
 
-import io.swagger.v3.oas.annotations.Hidden;
-import springfox.documentation.annotations.ApiIgnore;
-
-@Hidden
-@ApiIgnore
 public class DeliveryConfirmationDTO {
     private String guideNumber;
     private String deliveryStatus;
