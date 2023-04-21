@@ -20,8 +20,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class BasicAuthConfiguration {
 
     @Bean
-    SecurityFilterChain filterChain(HttpSecurity http,
-                                    AuthenticationManager authManager) throws Exception {
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .httpBasic()
                 .and().authorizeHttpRequests()
@@ -47,13 +46,13 @@ public class BasicAuthConfiguration {
         );
     }
 
-    @Bean
+   /* @Bean
     AuthenticationManager authManager(HttpSecurity http) throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
                 .userDetailsService(userDetailsService())
                 .passwordEncoder(passwordEncoder())
                 .and().build();
-    }
+    }*/
 
     @Bean
     PasswordEncoder passwordEncoder(){
