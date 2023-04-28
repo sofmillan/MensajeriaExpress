@@ -38,7 +38,7 @@ Since all of the previous packages use customized exceptions, here it is the dia
 ### Client related operations :ok_woman:
 With the following endpoints you can execute all of the CRUD (create, read, update, delte) operations. 
 
-#### POST: api/v1/client
+#### POST: api/v1/client :pencil2:
 To create a client on the database you must provide an id (number max 10 digits),  name (string), last name (string), phone number (number), email (string), address (string) and city (string). 
 
 **Request example:**
@@ -65,8 +65,9 @@ To create a client on the database you must provide an id (number max 10 digits)
 	"city": "Medellín"
 }
 ```
+<br>
 
-#### GET: api/v1/client/{clientId}
+#### GET: api/v1/client/{clientId} :mag:
 To retrieve an existent client's information from the database just indicate the client's id in the path.
 
 **Request example:**
@@ -85,8 +86,9 @@ http://localhost:8080/api/v1/client/123
 	"city": "Medellín"
 }
 ```
+<br>
 
-#### DELETE: api/v1/client/{clientId}
+#### DELETE: api/v1/client/{clientId} :triangular_flag_on_post:
 To delete an existent client from the database just indicate the client's id in the path.
 
 **Request example:**
@@ -99,8 +101,9 @@ http://localhost:8080/api/v1/client/123
 	"message": "Client with id 123 deleted successfully"
 }
 ```
+<br>
 
-#### PUT: api/v1/client/{clientId}
+#### PUT: api/v1/client/{clientId} :hammer_and_wrench:
 To update an existent client's information indicate the client's id in the path and provide the updated information.
 
 **Request example:**
@@ -130,12 +133,13 @@ http://localhost:8080/api/v1/client/123
 	"city": "Medellín"
 }
 ```
+
 ---
 ### Employee related operations :necktie:
 With the following endpoints you can execute all of the CRUD (create, read, update, delte) operations. \
 <br>
 
-#### POST: api/v1/employee
+#### POST: api/v1/employee :pencil2:
 To create a client on the database you must provide an id (number max 10 digits),  name (string), last name (string), phone number (number), email (string), address (string), city (string), seniority (number), blood type (string) and type of employee (string).
 
 **Request example:**
@@ -168,8 +172,9 @@ To create a client on the database you must provide an id (number max 10 digits)
 	"type":"coordinator"
 }
 ```
+<br>
 
-#### GET: api/v1/employee/{employeeId}
+#### GET: api/v1/employee/{employeeId} :mag:
 To retrieve an existent employee's information from the database just indicate the employee's id in the path.
 
 **Request example:**
@@ -191,8 +196,9 @@ http://localhost:8080/api/v1/employee/456
 	"type":"coordinator"
 }
 ```
+<br>
 
-#### DELETE: api/v1/employee/{employeeId}
+#### DELETE: api/v1/employee/{employeeId} :triangular_flag_on_post:
 To delete an existent employee from the database just indicate the employee's id in the path.
 
 **Request example:**
@@ -205,8 +211,9 @@ http://localhost:8080/api/v1/employee/456
 	"message": "Employee with id 456 deleted successfully"
 }
 ```
+<br>
 
-#### PUT: api/v1/employee/{employeeId}
+#### PUT: api/v1/employee/{employeeId} :hammer_and_wrench:
 To update an existent employee's information indicate the employee's id in the path and provide the updated information.
 
 **Request example:**
@@ -242,12 +249,13 @@ http://localhost:8080/api/v1/employee/456
 	"type":"coordinator"
 }
 ```
+
 ---
 ### Delivery related operations :envelope:
 With the following endpoints you can create a new delivery (a client can order multiple deliveries), update a delivery status, filter deliveries by status and get a specific delivery's information. \
 <br>
 
-#### POST: api/v1/delivery
+#### POST: api/v1/delivery :pencil2:
 To create a delivery on the database you must provide an existent client's id (number max 10 digits), origin city (string), destination city (string), the name of the person who will receive the package (string) and their phone number (number), the declared value of the package (number), the package's weight (number) and the destination address (string).
 
 **Request example:**
@@ -271,8 +279,9 @@ The service will generate a guide number to identify the delivery and the initia
 	"deliveryStatus": "Received"
 }
 ```
+<br>
 
-#### GET: api/v1/delivery/{deliveryGuideNumber}
+#### GET: api/v1/delivery/{deliveryGuideNumber} :mag:
 To retrieve an existent delivery's information from the database just indicate the delivery's guide number in the path.
 
 **Request example:**
@@ -295,7 +304,9 @@ http://localhost:8080/api/v1/delivery/6a483bc0-2e77-4b80-87dd-eccd81ade143
 	"guideNumber": "6a483bc0-2e77-4b80-87dd-eccd81ade143"
 }
 ```
-#### GET: api/v1/delivery?status={status}&employeeId={employeeId}
+<br>
+
+#### GET: api/v1/delivery?status={status}&employeeId={employeeId} :mag:
 To filter deliveries by status  just indicate the status and an existent employee's id.
 
 **Request example:**
@@ -334,8 +345,9 @@ The service will return a list of the deliveries that satisfy that condition.
 	}	
 ]
 ```
+<br>
 
-#### PUT: api/v1/delivery
+#### PUT: api/v1/delivery :hammer_and_wrench:
 To update an existent delivery's status indicate the employee's id, the delivery's guide number and the updated status. 
 (Note: the flow is Received -> On Route -> Delivered)
 
