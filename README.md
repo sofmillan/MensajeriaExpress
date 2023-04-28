@@ -1,4 +1,4 @@
-# Messenger service
+# :mailbox: Messenger service :mailbox:
 This repository contains the final project for MAKAIA's Backend Development Bootcamp and its main purpose is to evidence all of the syllabus that was taught throguh the last few months. This service provides a company a structure to manage data such as client's and employee's information, retrieved from a database, and create and track deliveries that clients made.
 This project was made with:
 - Java 
@@ -14,28 +14,28 @@ It also implements Git for version management and continuous integration and Rai
 
 Here's the link to see the api documentation: [documentation](https://mensajeriaexpress-production.up.railway.app/swagger-ui/index.html#/)
 
-## Diagrams
+## :left_right_arrow: Diagrams :left_right_arrow:
 
-### Client diagram
+### Client diagram :ok_woman:
 
 <img src="https://user-images.githubusercontent.com/98916125/233485325-c38403b7-4559-441f-aad7-0101fa0083a5.jpg"  width="700" />
 
-### Employee diagram
+### Employee diagram :necktie:
 <img src="https://user-images.githubusercontent.com/98916125/233488361-74296e7f-e278-4c91-91ae-df39ef13b20a.jpg"  width="700" />
 
-### Delivery and Package diagram
+### Delivery and Package diagram :envelope:
 <img src="https://user-images.githubusercontent.com/98916125/233622128-e3211c65-8c42-4c74-80dc-1c9f771fb20e.jpg"  width="700" />
 
-### Exceptions diagram
+### Exceptions diagram :heavy_exclamation_mark:
 Since all of the previous packages use customized exceptions, here it is the diagram for them.
 <img src="https://user-images.githubusercontent.com/98916125/233626033-cc3bbecc-586f-4762-8739-e44f7451dd5e.jpg"  width="700" />
 
-### Database diagram
+### Database diagram :book:
 <img src="https://user-images.githubusercontent.com/98916125/233628544-26455090-c344-453d-8eec-6ca081ffb446.jpg"  width="700" />
 
-## Endpoints
+## :dart: Endpoints :dart:
 
-### Client related operations
+### Client related operations :ok_woman:
 With the following endpoints you can execute all of the CRUD (create, read, update, delte) operations. 
 
 #### POST: api/v1/client
@@ -131,7 +131,7 @@ http://localhost:8080/api/v1/client/123
 }
 ```
 ---
-### Employee related operations
+### Employee related operations :necktie:
 With the following endpoints you can execute all of the CRUD (create, read, update, delte) operations. \
 <br>
 
@@ -243,7 +243,7 @@ http://localhost:8080/api/v1/employee/456
 }
 ```
 ---
-### Delivery related operations
+### Delivery related operations :envelope:
 With the following endpoints you can create a new delivery (a client can order multiple deliveries), update a delivery status, filter deliveries by status and get a specific delivery's information. \
 <br>
 
