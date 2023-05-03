@@ -1,5 +1,8 @@
 # :mailbox: Messenger service :mailbox:
 This repository contains the final project for MAKAIA's Backend Development Bootcamp and its main purpose is to evidence all of the syllabus that was taught throguh the last few months. This service provides a company a structure to manage data such as client's and employee's information, retrieved from a database, and create and track deliveries that clients made.
+
+<img src="https://user-images.githubusercontent.com/98916125/236062202-2b0dd2fa-8ee9-489d-8b0b-b532baadc01a.jpg"  width="700" />
+
 This project was made with:
 - :coffee: Java 
 - :dolphin: MySQL
@@ -13,6 +16,16 @@ And here are some of the tools that Spring Framework allow us to use:
 It also implements Git for version management and continuous integration and Railways for deployment.
 
 Here's the link to see the api documentation: [documentation](https://mensajeriaexpress-production.up.railway.app/swagger-ui/index.html#/)
+
+### Users :sparkles:
+
+**All actions allowed**
+- User: admin
+- Password: lovelicky
+
+**Only read actions allowed**
+- User: user
+- Password: gguggugi
 
 ## :left_right_arrow: Diagrams :left_right_arrow:
 
