@@ -1,7 +1,7 @@
 # :mailbox: Messenger service :mailbox:
 This repository contains the final project for MAKAIA's Backend Development Bootcamp and its main purpose is to evidence all of the syllabus that was taught throguh the last few months. This service provides a company a structure to manage data such as client's and employee's information, retrieved from a database, and create and track deliveries that clients made.
 
-<img src="https://user-images.githubusercontent.com/98916125/236062202-2b0dd2fa-8ee9-489d-8b0b-b532baadc01a.jpg"  width="700" />
+<img src="https://user-images.githubusercontent.com/98916125/236503574-c7a94f48-8ca1-4fde-a0a3-2bac5192c238.jpg"  width="700" />
 
 This project was made with:
 - :coffee: Java 
